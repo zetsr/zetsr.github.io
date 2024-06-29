@@ -34,9 +34,18 @@
             background-color: #1F1F1F;
         }
 
-        footer a {
+        .link-container {
+            display: inline-block;
+            margin: 10px; /* 设置链接之间的间距 */
+        }
+
+        .link-container a {
+            display: block;
+            padding: 10px;
+            background-color: #333; /* 设置链接的背景色 */
             color: #C8C8C8;
             text-decoration: none;
+            border-radius: 5px;
         }
 
         /* 添加代码框样式 */
@@ -64,9 +73,15 @@
     </main>
 
     <footer>
-        <a href="https://github.com/zetsr" target="_blank">Github</a>
-        <a href="server.wyvern.world" target="_blank">Server</a>
-        <a href="https://steamcommunity.com/id/zetsr" target="_blank">Steam</a>
+        <div class="link-container">
+            <a href="https://github.com/zetsr/" target="_blank">Github</a>
+        </div>
+        <div class="link-container">
+            <a href="https://server.wyvern.world/" target="_blank">Server</a>
+        </div>
+        <div class="link-container">
+            <a href="https://steamcommunity.com/id/zetsr/" target="_blank">Steam</a>
+        </div>
     </footer>
 </body>
 </html>
