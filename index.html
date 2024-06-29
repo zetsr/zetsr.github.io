@@ -16,6 +16,28 @@
         header, main, footer {
             margin: 0 auto; /* 居中显示 */
             max-width: 600px; /* 设置最大宽度 */
+            opacity: 0; /* 初始透明度为0 */
+        }
+
+        header {
+            animation: fadeIn 0.5s forwards 0.5s; /* 延迟0.5s后开始淡入动画 */
+        }
+
+        main {
+            animation: fadeIn 0.5s forwards 1s; /* 延迟1s后开始淡入动画 */
+        }
+
+        footer {
+            animation: fadeIn 0.5s forwards 1.5s; /* 延迟1.5s后开始淡入动画 */
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
         }
 
         header h1 {
@@ -91,10 +113,10 @@
     </header>
 
     <main>
-<!--
-        <p>[内容]</p>
+
+        <p>测试文本</p>
         <pre>test\n呃呃呃</pre>
--->
+
     </main>
 
     <footer>
