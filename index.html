@@ -84,27 +84,6 @@
             <a href="https://steamcommunity.com/id/zetsr/" target="_blank">Steam</a>
         </div>
     </footer>
-
-    <script>
-        // 获取当前时间和地区
-        function displayDateTime() {
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = now.getMonth() + 1;
-            const day = now.getDate();
-            const hour = now.getHours();
-            const minute = now.getMinutes();
-            const period = hour < 12 ? '上午' : '下午';
-
-            const formattedDateTime = `${year}年${month}月${day}日 ${period} ${hour}时${minute}分`;
-
-            // 示例中直接写入到一个元素中
-            document.getElementById('datetime').textContent = formattedDateTime;
-        }
-
-        // 在页面加载时调用函数显示时间
-        displayDateTime();
-    </script>
     
 </body>
 </html>
