@@ -34,16 +34,14 @@
             text-align: center;
             padding: 10px 0;
             background-color: #1F1F1F;
-            transform: translateY(-100%);
-            animation: slideInFooter 1s ease-out forwards;
+            transform: scale(0.8); /* 初始缩小效果 */
+            opacity: 0; /* 初始透明 */
+            animation: unlockEffect 0.5s ease-in-out forwards; /* 添加动画 */
         }
 
         .link-container {
             display: inline-block;
             margin: 10px; /* 设置链接之间的间距 */
-            transform: scale(0.8); /* 初始缩小效果 */
-            opacity: 0; /* 初始透明 */
-            animation: unlockEffect 0.5s ease-in-out forwards; /* 添加动画 */
         }
 
         .link-container a {
@@ -72,8 +70,9 @@
             overflow-x: auto; /* 横向滚动条 */
             font-family: 'Courier New', Courier, monospace; /* 设置代码框字体 */
             text-align: left; /* 保持代码框内文本左对齐 */
-            transform: translateY(-100%);
-            animation: slideInPre 1s ease-out forwards;
+            transform: scale(0.8); /* 初始缩小效果 */
+            opacity: 0; /* 初始透明 */
+            animation: unlockEffect 0.5s ease-in-out forwards; /* 添加动画 */
         }
 
         /* 动画关键帧 */
@@ -85,24 +84,6 @@
             100% {
                 transform: scale(1); /* 最终正常大小 */
                 opacity: 1; /* 完全显示 */
-            }
-        }
-
-        @keyframes slideInFooter {
-            0% {
-                transform: translateY(-100%);
-            }
-            100% {
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideInPre {
-            0% {
-                transform: translateY(-100%);
-            }
-            100% {
-                transform: translateY(0);
             }
         }
     </style>
@@ -131,7 +112,5 @@
         </div>
     </footer>
 
-    <!-- 示例中的pre背景矩形 -->
-    <pre>示例文本</pre>
 </body>
 </html>
