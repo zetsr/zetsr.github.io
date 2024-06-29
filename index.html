@@ -34,31 +34,14 @@
             text-align: center;
             padding: 10px 0;
             background-color: #1F1F1F;
-            transform: scaleY(0); /* 初始缩小效果，只在y轴方向缩小 */
-            transform-origin: top; /* 缩放原点在顶部 */
-            opacity: 0; /* 初始透明 */
-            animation: expandFromTop 0.5s ease-in-out forwards, unlockEffect 0.5s ease-in-out 0.5s forwards; /* 添加动画 */
-        }
-
-        pre {
-            background-color: #1F1F1F; /* 设置代码框背景色 */
-            color: #C8C8C8; /* 设置代码框文本颜色 */
-            padding: 10px; /* 设置代码框内边距 */
-            border-radius: 10px; /* 设置圆角边框 */
-            overflow-x: auto; /* 横向滚动条 */
-            font-family: 'Courier New', Courier, monospace; /* 设置代码框字体 */
-            text-align: left; /* 保持代码框内文本左对齐 */
-            transform: scaleY(0); /* 初始缩小效果，只在y轴方向缩小 */
-            transform-origin: top; /* 缩放原点在顶部 */
-            opacity: 0; /* 初始透明 */
-            animation: expandFromTop 0.5s ease-in-out forwards, unlockEffect 0.5s ease-in-out 0.5s forwards; /* 添加动画 */
         }
 
         .link-container {
             display: inline-block;
             margin: 10px; /* 设置链接之间的间距 */
+            transform: scale(0.8); /* 初始缩小效果 */
             opacity: 0; /* 初始透明 */
-            animation: fadeIn 0.5s ease-in-out 1s forwards; /* 添加动画 */
+            animation: unlockEffect 0.5s ease-in-out forwards; /* 添加动画 */
         }
 
         .link-container a {
@@ -78,18 +61,18 @@
             transform: scale(1.1); /* 缩放效果 */
         }
 
-        /* 动画关键帧 */
-        @keyframes expandFromTop {
-            0% {
-                transform: scaleY(0); /* 初始缩小效果 */
-                opacity: 0; /* 初始透明 */
-            }
-            100% {
-                transform: scaleY(1); /* 最终正常大小 */
-                opacity: 1; /* 完全显示 */
-            }
+        /* 添加代码框样式 */
+        pre {
+            background-color: #1F1F1F; /* 设置代码框背景色 */
+            color: #C8C8C8; /* 设置代码框文本颜色 */
+            padding: 10px; /* 设置代码框内边距 */
+            border-radius: 10px; /* 设置圆角边框 */
+            overflow-x: auto; /* 横向滚动条 */
+            font-family: 'Courier New', Courier, monospace; /* 设置代码框字体 */
+            text-align: left; /* 保持代码框内文本左对齐 */
         }
 
+        /* 动画关键帧 */
         @keyframes unlockEffect {
             0% {
                 transform: scale(0.8); /* 初始缩小效果 */
@@ -97,15 +80,6 @@
             }
             100% {
                 transform: scale(1); /* 最终正常大小 */
-                opacity: 1; /* 完全显示 */
-            }
-        }
-
-        @keyframes fadeIn {
-            0% {
-                opacity: 0; /* 初始透明 */
-            }
-            100% {
                 opacity: 1; /* 完全显示 */
             }
         }
@@ -134,6 +108,5 @@
             <a href="https://steamcommunity.com/id/zetsr/" target="_blank">Steam</a>
         </div>
     </footer>
-
 </body>
 </html>
