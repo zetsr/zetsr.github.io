@@ -47,12 +47,14 @@
             color: #C8C8C8;
             text-decoration: none;
             border-radius: 5px;
+            transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease; /* 添加过渡效果 */
         }
 
-        /* 在鼠标悬停时高亮外链文本 */
+        /* 在鼠标悬停时高亮外链文本并缩放 */
         .link-container a:hover {
             background-color: #555; /* 改变背景色 */
             color: #FFF; /* 改变文本颜色 */
+            transform: scale(1.1); /* 缩放效果 */
         }
 
         /* 添加代码框样式 */
