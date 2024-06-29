@@ -10,6 +10,7 @@
             font-family: Arial, sans-serif; /* 设置字体 */
             text-align: center; /* 将文本居中 */
             padding: 20px; /* 添加内边距增加内容的可读性 */
+            overflow: hidden; /* 隐藏超出部分 */
         }
 
         header, main, footer {
@@ -38,6 +39,9 @@
         .link-container {
             display: inline-block;
             margin: 10px; /* 设置链接之间的间距 */
+            transform: scale(0.8); /* 初始缩小效果 */
+            opacity: 0; /* 初始透明 */
+            animation: unlockEffect 0.5s ease-in-out forwards; /* 添加动画 */
         }
 
         .link-container a {
@@ -67,18 +71,30 @@
             font-family: 'Courier New', Courier, monospace; /* 设置代码框字体 */
             text-align: left; /* 保持代码框内文本左对齐 */
         }
+
+        /* 动画关键帧 */
+        @keyframes unlockEffect {
+            0% {
+                transform: scale(0.8); /* 初始缩小效果 */
+                opacity: 0; /* 初始透明 */
+            }
+            100% {
+                transform: scale(1); /* 最终正常大小 */
+                opacity: 1; /* 完全显示 */
+            }
+        }
     </style>
 </head>
 <body>
     <header>
         <h1>zetsr@outlook.com</h1>
     </header>
-<!--
+
     <main>
         <p>[内容]</p>
         <pre>test\n呃呃呃</pre>
     </main>
--->
+
     <footer>
         <div class="link-container">
             <a href="https://github.com/zetsr/" target="_blank">Github</a>
@@ -90,6 +106,5 @@
             <a href="https://steamcommunity.com/id/zetsr/" target="_blank">Steam</a>
         </div>
     </footer>
-    
 </body>
 </html>
