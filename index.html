@@ -12,7 +12,7 @@
             padding: 20px; /* 添加内边距增加内容的可读性 */
         }
 
-        header, main {
+        header, main, footer {
             margin: 0 auto; /* 居中显示 */
             max-width: 600px; /* 设置最大宽度 */
         }
@@ -23,6 +23,20 @@
 
         main p {
             /* 可以根据需要设置内容段落的样式 */
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+            background-color: #1F1F1F;
+        }
+
+        footer a {
+            color: #C8C8C8;
+            text-decoration: none;
         }
 
         /* 添加代码框样式 */
@@ -49,5 +63,8 @@
         <pre>test\n呃呃呃</pre>
     </main>
 
+    <footer>
+        <a href="https://github.com/zetsr" target="_blank">github</a>
+    </footer>
 </body>
 </html>
