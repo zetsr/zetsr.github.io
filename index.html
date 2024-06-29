@@ -34,6 +34,8 @@
             text-align: center;
             padding: 10px 0;
             background-color: #1F1F1F;
+            transform: translateY(-100%);
+            animation: slideInFooter 1s ease-out forwards;
         }
 
         .link-container {
@@ -70,6 +72,8 @@
             overflow-x: auto; /* 横向滚动条 */
             font-family: 'Courier New', Courier, monospace; /* 设置代码框字体 */
             text-align: left; /* 保持代码框内文本左对齐 */
+            transform: translateY(-100%);
+            animation: slideInPre 1s ease-out forwards;
         }
 
         /* 动画关键帧 */
@@ -81,6 +85,24 @@
             100% {
                 transform: scale(1); /* 最终正常大小 */
                 opacity: 1; /* 完全显示 */
+            }
+        }
+
+        @keyframes slideInFooter {
+            0% {
+                transform: translateY(-100%);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInPre {
+            0% {
+                transform: translateY(-100%);
+            }
+            100% {
+                transform: translateY(0);
             }
         }
     </style>
@@ -108,5 +130,8 @@
             <a href="https://steamcommunity.com/id/zetsr/" target="_blank">Steam</a>
         </div>
     </footer>
+
+    <!-- 示例中的pre背景矩形 -->
+    <pre>示例文本</pre>
 </body>
 </html>
