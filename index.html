@@ -26,7 +26,7 @@
         }
 
         footer {
-            position: fixed;
+            position: center;
             bottom: 0;
             width: 100%;
             text-align: center;
@@ -47,6 +47,17 @@
             text-decoration: none;
             border-radius: 5px;
         }
+
+        /* 添加代码框样式 */
+        pre {
+            background-color: #1F1F1F; /* 设置代码框背景色 */
+            color: #C8C8C8; /* 设置代码框文本颜色 */
+            padding: 10px; /* 设置代码框内边距 */
+            border-radius: 20px; /* 设置圆角边框 */
+            overflow-x: auto; /* 横向滚动条 */
+            font-family: 'Courier New', Courier, monospace; /* 设置代码框字体 */
+            text-align: left; /* 保持代码框内文本左对齐 */
+        }
     </style>
 </head>
 <body>
@@ -56,6 +67,9 @@
 
     <main>
         <p>[内容]</p>
+
+        <!-- 代码框示例 -->
+        <pre>test\n呃呃呃</pre>
     </main>
 
     <footer>
