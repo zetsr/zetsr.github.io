@@ -1,127 +1,45 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            background-color: #131313;
-            color: #C8C8C8; /* 设置整体文本颜色 */
-            font-family: Arial, sans-serif; /* 设置字体 */
-            text-align: center; /* 将文本居中 */
-            padding: 20px; /* 添加内边距增加内容的可读性 */
-            overflow: hidden; /* 隐藏超出部分 */
-        }
-
-        header, main, footer {
-            margin: 0 auto; /* 居中显示 */
-            max-width: 600px; /* 设置最大宽度 */
-            opacity: 0; /* 初始透明度为0 */
-        }
-
-        header {
-            animation: fadeIn 0.25s forwards 0.5s;
-        }
-
-        main {
-            animation: fadeIn 0.75s forwards 0.75s;
-        }
-
-        footer {
-            animation: fadeIn 1s forwards 1s;
-        }
-
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-
-        header h1 {
-            color: #C8C8C8; /* 设置标题颜色 */
-        }
-
-        main p {
-            /* 可以根据需要设置内容段落的样式 */
-        }
-
-        footer {
-            border-radius: 10px; /* 设置圆角边框 */
-            position: center;
-            bottom: 0;
-            width: 100%;
-            text-align: center;
-            padding: 10px 0;
-            background-color: #1F1F1F;
-        }
-
-        .link-container {
-            display: inline-block;
-            margin: 10px; /* 设置链接之间的间距 */
-            transform: scale(0.8); /* 初始缩小效果 */
-            opacity: 0; /* 初始透明 */
-            animation: unlockEffect 0.5s ease-in-out forwards; /* 添加动画 */
-        }
-
-        .link-container a {
-            display: block;
-            padding: 10px;
-            background-color: #333; /* 设置链接的背景色 */
-            color: #C8C8C8;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease; /* 添加过渡效果 */
-        }
-
-        /* 在鼠标悬停时高亮外链文本并缩放 */
-        .link-container a:hover {
-            background-color: #555; /* 改变背景色 */
-            color: #FFF; /* 改变文本颜色 */
-            transform: scale(1.1); /* 缩放效果 */
-        }
-
-        /* 添加代码框样式 */
-        pre {
-            background-color: #1F1F1F; /* 设置代码框背景色 */
-            color: #C8C8C8; /* 设置代码框文本颜色 */
-            padding: 10px; /* 设置代码框内边距 */
-            border-radius: 10px; /* 设置圆角边框 */
-            overflow-x: auto; /* 横向滚动条 */
-            font-family: 'Courier New', Courier, monospace; /* 设置代码框字体 */
-            text-align: left; /* 保持代码框内文本左对齐 */
-        }
-
-        /* 动画关键帧 */
-        @keyframes unlockEffect {
-            0% {
-                transform: scale(0.8); /* 初始缩小效果 */
-                opacity: 0; /* 初始透明 */
-            }
-            100% {
-                transform: scale(1); /* 最终正常大小 */
-                opacity: 1; /* 完全显示 */
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>切换选卡界面 - 静态网站</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>zetsr</h1>
-    </header>
+  <!-- 导航头部 -->
+  <div id="header"></div>
 
-    <main>
-        <p>也许⋯⋯</p>
-    </main>
+  <!-- 选卡区域 -->
+  <div id="tabs"></div>
 
-    <footer>
-        <div class="link-container">
-            <a href="steam://connect/110.42.107.181:1337" target="_blank">[CS:GO] Zetsr Server</a>
-        </div>
-        
-    </footer>
+  <!-- 主要内容区 -->
+  <div id="content"></div>
 
+  <!-- 页脚 -->
+  <div id="footer"></div>
+
+  <script src="js/app.js"></script>
+  <script src="js/tab.js"></script>
+  <script src="js/home.js"></script>
+  <script src="js/api.js"></script>
+  <script>
+    // 初始化头部和页脚
+    fetch('components/header.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('header').innerHTML = data);
+
+    fetch('components/footer.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('footer').innerHTML = data);
+
+    // 初始化选卡模块
+    fetch('components/tabs.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('tabs').innerHTML = data;
+        initTabs();
+      });
+  </script>
 </body>
 </html>
