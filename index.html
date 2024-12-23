@@ -14,6 +14,8 @@
             padding: 0;
             display: flex; /* 使用flex布局 */
             justify-content: center; /* 水平居中 */
+            /* align-items: center; /* 垂直居中 */
+            /* height: 100vh; /* 使body占满整个屏幕高度 */
             text-align: center; /* 确保所有文本都居中 */
         }
 
@@ -149,18 +151,6 @@
                 padding: 10px;
             }
         }
-
-        /* Copyright 样式 */
-        .footer {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #333;
-            color: rgb(200, 200, 200);
-            text-align: center;
-            font-size: 14px;
-            width: 100%;
-        }
-
     </style>
 </head>
 <body>
@@ -178,7 +168,6 @@
             <!-- 主页内容 -->
             <div id="home" class="tab-content">
                 <h1>欢迎来到我们的网站</h1>
-                <!-- <p>Copyright &copy; 2024 - New Dawn Community</p> --> 
             </div>
 
             <!-- API 文档内容 -->
@@ -286,9 +275,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="footer">
         <p>Copyright &copy; 2024 - New Dawn Community</p>
     </div>
 
@@ -319,6 +305,20 @@
                 button.classList.remove('active');
             });
             document.querySelector(`.sub-tab[onclick="showSubTab('${subTab}')"]`).classList.add('active');
+        }
+
+        // 切换三级子选卡
+        function showSubSubTab(subSubTab) {
+            const allSubSubTabs = document.querySelectorAll('.sub-sub-tab-content');
+            allSubSubTabs.forEach(subSubTabContent => {
+                subSubTabContent.style.display = 'none';
+            });
+            document.getElementById(subSubTab).style.display = 'block';
+            const allSubSubTabButtons = document.querySelectorAll('.sub-sub-tab');
+            allSubSubTabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+            document.querySelector(`.sub-sub-tab[onclick="showSubSubTab('${subSubTab}')"]`).classList.add('active');
         }
     </script>
 
