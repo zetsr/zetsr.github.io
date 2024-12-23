@@ -14,24 +14,28 @@
             padding: 0;
             display: flex; /* 使用flex布局 */
             justify-content: center; /* 水平居中 */
+            align-items: center; /* 垂直居中 */
             height: 100vh; /* 使body占满整个屏幕高度 */
         }
 
         .container {
             display: flex;
             flex-direction: column;
+            align-items: center; /* 水平居中内容 */
+            justify-content: flex-start; /* 垂直方向上从上方开始布局 */
             width: 100%; /* 使容器宽度占满 */
             max-width: 1200px; /* 最大宽度，避免屏幕过宽时内容过于拉伸 */
             box-sizing: border-box; /* 包括内边距和边框 */
             background-color: #222; /* 背景颜色 */
             border-radius: 8px; /* 圆角效果 */
-            justify-content: center; /* 水平居中 */
+            padding: 20px; /* 适当的内边距 */
         }
 
         .tabs {
             display: flex;
             background-color: #333;
             border-bottom: 1px solid rgb(200, 200, 200);
+            width: 100%; /* 使选项卡的宽度占满容器 */
             justify-content: center; /* 水平居中 */
         }
 
@@ -42,18 +46,16 @@
             background-color: #444;
             border: 1px solid #333;
             transition: background-color 0.3s;
-            justify-content: center; /* 水平居中 */
+            margin: 0 5px; /* 增加间距 */
         }
 
         .tab:hover {
             background-color: #555;
-            justify-content: center; /* 水平居中 */
         }
 
         .tab.active {
             background-color: #222;
             border-bottom: 2px solid rgb(200, 200, 200);
-            justify-content: center; /* 水平居中 */
         }
 
         .content {
@@ -61,64 +63,39 @@
             background-color: #222;
             flex-grow: 1;
             overflow-y: auto;
+            width: 100%; /* 使内容区宽度占满 */
             box-sizing: border-box;
-            justify-content: center; /* 水平居中 */
         }
 
-        /* 子选卡样式 */
-        .sub-tabs {
+        .sub-tabs, .sub-sub-tabs {
             display: flex;
+            justify-content: center; /* 水平居中 */
             margin-top: 20px;
             border-top: 1px solid rgb(200, 200, 200);
             padding-top: 10px;
-            justify-content: center; /* 水平居中 */
+            width: 100%;
         }
 
-        .sub-tab {
+        .sub-tab, .sub-sub-tab {
             padding: 10px 20px;
             cursor: pointer;
             color: rgb(200, 200, 200);
             background-color: #444;
-            margin-right: 10px;
+            margin: 0 5px; /* 增加间距 */
             border: 1px solid #333;
-            justify-content: center; /* 水平居中 */
         }
 
-        .sub-tab.active {
+        .sub-tab.active, .sub-sub-tab.active {
             background-color: #333;
             border-bottom: 2px solid rgb(200, 200, 200);
-            justify-content: center; /* 水平居中 */
-        }
-
-        /* 三级子选卡样式 */
-        .sub-sub-tabs {
-            display: flex;
-            margin-top: 20px;
-            border-top: 1px solid rgb(200, 200, 200);
-            padding-top: 10px;
-            justify-content: center; /* 水平居中 */
-        }
-
-        .sub-sub-tab {
-            padding: 8px 15px;
-            cursor: pointer;
-            color: rgb(200, 200, 200);
-            background-color: #555;
-            margin-right: 10px;
-            border: 1px solid #444;
-            justify-content: center; /* 水平居中 */
-        }
-
-        .sub-sub-tab.active {
-            background-color: #444;
-            border-bottom: 2px solid rgb(200, 200, 200);
-            justify-content: center; /* 水平居中 */
         }
 
         /* 链接按钮样式 */
         .link-container {
             margin-top: 20px;
+            display: flex;
             justify-content: center; /* 水平居中 */
+            width: 100%;
         }
 
         .link-container a {
@@ -129,13 +106,12 @@
             padding: 10px;
             border-radius: 5px;
             transition: background-color 0.3s;
-            justify-content: center; /* 水平居中 */
+            margin: 0 5px; /* 增加间距 */
         }
 
         .link-container a:hover {
             background-color: #66cc66;
             color: #1a1a1a;
-            justify-content: center; /* 水平居中 */
         }
 
         /* 响应式样式 */
