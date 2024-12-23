@@ -12,15 +12,22 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            display: flex; /* 使用flex布局 */
+            justify-content: center; /* 水平居中 */
+            align-items: center; /* 垂直居中 */
+            height: 100vh; /* 使body占满整个屏幕高度 */
         }
 
         .container {
             display: flex;
             flex-direction: column;
-            height: 100vh;
+            width: 100%; /* 使容器宽度占满 */
+            max-width: 1200px; /* 最大宽度，避免屏幕过宽时内容过于拉伸 */
+            box-sizing: border-box; /* 包括内边距和边框 */
+            background-color: #222; /* 背景颜色 */
+            border-radius: 8px; /* 圆角效果 */
         }
 
-        /* 选卡容器 */
         .tabs {
             display: flex;
             background-color: #333;
@@ -50,6 +57,7 @@
             background-color: #222;
             flex-grow: 1;
             overflow-y: auto;
+            box-sizing: border-box;
         }
 
         /* 子选卡样式 */
