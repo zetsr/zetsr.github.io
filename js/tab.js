@@ -20,3 +20,5 @@ function initTabs() {
     activeTab.classList.add('active');
   }
   
+  document.addEventListener('DOMContentLoaded', initTabs);
+  
