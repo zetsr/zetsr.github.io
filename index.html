@@ -96,6 +96,26 @@
             border-bottom: 2px solid rgb(200, 200, 200);
         }
 
+        /* 链接按钮样式 */
+        .link-container {
+            margin-top: 20px;
+        }
+
+        .link-container a {
+            color: #66cc66;
+            text-decoration: none;
+            font-size: 16px;
+            border: 1px solid #66cc66;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .link-container a:hover {
+            background-color: #66cc66;
+            color: #1a1a1a;
+        }
+
         /* 响应式样式 */
         @media (max-width: 768px) {
             .tabs {
@@ -172,47 +192,47 @@
 
                     <!-- 三级子选卡 -->
                     <div class="sub-sub-tabs">
-                        <div class="sub-sub-tab active" onclick="showSubSubTab('server1-config')">配置</div>
-                        <div class="sub-sub-tab" onclick="showSubSubTab('server1-status')">状态</div>
-                        <div class="sub-sub-tab" onclick="showSubSubTab('server1-logs')">日志</div>
-                        <div class="sub-sub-tab" onclick="showSubSubTab('server1-backup')">备份</div>
-                        <div class="sub-sub-tab" onclick="showSubSubTab('server1-security')">安全</div>
-                        <div class="sub-sub-tab" onclick="showSubSubTab('server1-performance')">性能</div>
-                        <div class="sub-sub-tab" onclick="showSubSubTab('server1-users')">用户</div>
-                        <div class="sub-sub-tab" onclick="showSubSubTab('server1-network')">网络</div>
-                        <div class="sub-sub-tab" onclick="showSubSubTab('server1-uptime')">运行时间</div>
-                        <div class="sub-sub-tab" onclick="showSubSubTab('server1-update')">更新</div>
+                        <div class="sub-sub-tab active" onclick="showSubSubTab('server1-link')">连接</div>
                     </div>
 
                     <!-- 三级子选卡内容 -->
-                    <div id="server1-config" class="sub-sub-tab-content">
-                        <h3>配置</h3>
-                        <p>修改服务器 1 的配置。</p>
+                    <div id="server1-link" class="sub-sub-tab-content">
+                        <div class="link-container">
+                            <a href="steam://connect/110.42.107.181:1337" target="_blank">[CS:GO] Zetsr Server</a>
+                        </div>
                     </div>
-                    <div id="server1-status" class="sub-sub-tab-content" style="display: none;">
-                        <h3>状态</h3>
-                        <p>查看服务器 1 的当前状态。</p>
-                    </div>
-                    <div id="server1-logs" class="sub-sub-tab-content" style="display: none;">
-                        <h3>日志</h3>
-                        <p>查看服务器 1 的日志。</p>
-                    </div>
-                    <!-- 其他内容... -->
                 </div>
 
                 <!-- 服务器2、服务器3、...内容结构同上 -->
                 <div id="server2" class="sub-tab-content" style="display: none;">
                     <h2>服务器 2</h2>
                     <p>管理服务器 2 的详细信息。</p>
-                    <!-- 服务器2的三级子选卡内容... -->
+                    <!-- 服务器2的三级子选卡内容 -->
+                    <div class="sub-sub-tabs">
+                        <div class="sub-sub-tab active" onclick="showSubSubTab('server2-link')">连接</div>
+                    </div>
+                    <div id="server2-link" class="sub-sub-tab-content">
+                        <div class="link-container">
+                            <a href="steam://connect/110.42.107.182:1337" target="_blank">[CS:GO] Zetsr Server 2</a>
+                        </div>
+                    </div>
                 </div>
 
                 <div id="server3" class="sub-tab-content" style="display: none;">
                     <h2>服务器 3</h2>
                     <p>管理服务器 3 的详细信息。</p>
-                    <!-- 服务器3的三级子选卡内容... -->
+                    <!-- 服务器3的三级子选卡内容 -->
+                    <div class="sub-sub-tabs">
+                        <div class="sub-sub-tab active" onclick="showSubSubTab('server3-link')">连接</div>
+                    </div>
+                    <div id="server3-link" class="sub-sub-tab-content">
+                        <div class="link-container">
+                            <a href="steam://connect/110.42.107.183:1337" target="_blank">[CS:GO] Zetsr Server 3</a>
+                        </div>
+                    </div>
                 </div>
-                <!-- 其他服务器的内容可以按此方式添加 -->
+
+                <!-- 服务器4、服务器5内容类似 -->
             </div>
         </div>
     </div>
@@ -220,16 +240,11 @@
     <script>
         // 切换主选卡
         function showTab(tab) {
-            // 隐藏所有选卡内容
             const allTabs = document.querySelectorAll('.tab-content');
             allTabs.forEach(tabContent => {
                 tabContent.style.display = 'none';
             });
-
-            // 激活对应的选卡
             document.getElementById(tab).style.display = 'block';
-
-            // 更新选卡的激活状态
             const allTabButtons = document.querySelectorAll('.tab');
             allTabButtons.forEach(button => {
                 button.classList.remove('active');
@@ -239,16 +254,11 @@
 
         // 切换子选卡
         function showSubTab(subTab) {
-            // 隐藏所有子选卡内容
             const allSubTabs = document.querySelectorAll('.sub-tab-content');
             allSubTabs.forEach(subTabContent => {
                 subTabContent.style.display = 'none';
             });
-
-            // 激活对应的子选卡内容
             document.getElementById(subTab).style.display = 'block';
-
-            // 更新子选卡的激活状态
             const allSubTabButtons = document.querySelectorAll('.sub-tab');
             allSubTabButtons.forEach(button => {
                 button.classList.remove('active');
@@ -258,16 +268,11 @@
 
         // 切换三级子选卡
         function showSubSubTab(subSubTab) {
-            // 隐藏所有三级子选卡内容
             const allSubSubTabs = document.querySelectorAll('.sub-sub-tab-content');
             allSubSubTabs.forEach(subSubTabContent => {
                 subSubTabContent.style.display = 'none';
             });
-
-            // 激活对应的三级子选卡内容
             document.getElementById(subSubTab).style.display = 'block';
-
-            // 更新三级子选卡的激活状态
             const allSubSubTabButtons = document.querySelectorAll('.sub-sub-tab');
             allSubSubTabButtons.forEach(button => {
                 button.classList.remove('active');
