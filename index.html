@@ -25,12 +25,14 @@
             box-sizing: border-box; /* 包括内边距和边框 */
             background-color: #222; /* 背景颜色 */
             border-radius: 8px; /* 圆角效果 */
+            justify-content: center; /* 水平居中 */
         }
 
         .tabs {
             display: flex;
             background-color: #333;
             border-bottom: 1px solid rgb(200, 200, 200);
+            justify-content: center; /* 水平居中 */
         }
 
         .tab {
@@ -40,15 +42,18 @@
             background-color: #444;
             border: 1px solid #333;
             transition: background-color 0.3s;
+            justify-content: center; /* 水平居中 */
         }
 
         .tab:hover {
             background-color: #555;
+            justify-content: center; /* 水平居中 */
         }
 
         .tab.active {
             background-color: #222;
             border-bottom: 2px solid rgb(200, 200, 200);
+            justify-content: center; /* 水平居中 */
         }
 
         .content {
@@ -57,6 +62,7 @@
             flex-grow: 1;
             overflow-y: auto;
             box-sizing: border-box;
+            justify-content: center; /* 水平居中 */
         }
 
         /* 子选卡样式 */
@@ -65,6 +71,7 @@
             margin-top: 20px;
             border-top: 1px solid rgb(200, 200, 200);
             padding-top: 10px;
+            justify-content: center; /* 水平居中 */
         }
 
         .sub-tab {
@@ -74,11 +81,13 @@
             background-color: #444;
             margin-right: 10px;
             border: 1px solid #333;
+            justify-content: center; /* 水平居中 */
         }
 
         .sub-tab.active {
             background-color: #333;
             border-bottom: 2px solid rgb(200, 200, 200);
+            justify-content: center; /* 水平居中 */
         }
 
         /* 三级子选卡样式 */
@@ -87,6 +96,7 @@
             margin-top: 20px;
             border-top: 1px solid rgb(200, 200, 200);
             padding-top: 10px;
+            justify-content: center; /* 水平居中 */
         }
 
         .sub-sub-tab {
@@ -96,16 +106,19 @@
             background-color: #555;
             margin-right: 10px;
             border: 1px solid #444;
+            justify-content: center; /* 水平居中 */
         }
 
         .sub-sub-tab.active {
             background-color: #444;
             border-bottom: 2px solid rgb(200, 200, 200);
+            justify-content: center; /* 水平居中 */
         }
 
         /* 链接按钮样式 */
         .link-container {
             margin-top: 20px;
+            justify-content: center; /* 水平居中 */
         }
 
         .link-container a {
@@ -116,11 +129,13 @@
             padding: 10px;
             border-radius: 5px;
             transition: background-color 0.3s;
+            justify-content: center; /* 水平居中 */
         }
 
         .link-container a:hover {
             background-color: #66cc66;
             color: #1a1a1a;
+            justify-content: center; /* 水平居中 */
         }
 
         /* 响应式样式 */
