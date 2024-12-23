@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>静态网站 - 主页 & API 文档</title>
+    <title>zetsr - Website & Docs</title>
     <style>
         /* 深色主题样式 */
         body {
@@ -74,6 +74,28 @@
             border-bottom: 2px solid rgb(200, 200, 200);
         }
 
+        /* API 三级子选卡样式 */
+        .sub-sub-tabs {
+            display: flex;
+            margin-top: 20px;
+            border-top: 1px solid rgb(200, 200, 200);
+            padding-top: 10px;
+        }
+
+        .sub-sub-tab {
+            padding: 8px 15px;
+            cursor: pointer;
+            color: rgb(200, 200, 200);
+            background-color: #555;
+            margin-right: 10px;
+            border: 1px solid #444;
+        }
+
+        .sub-sub-tab.active {
+            background-color: #444;
+            border-bottom: 2px solid rgb(200, 200, 200);
+        }
+
         /* 响应式样式 */
         @media (max-width: 768px) {
             .tabs {
@@ -119,16 +141,64 @@
                 <div id="overview" class="sub-tab-content">
                     <h2>API 概述</h2>
                     <p>我们的API非常简单易用，旨在帮助您快速集成。</p>
+
+                    <!-- 三级子选卡 -->
+                    <div class="sub-sub-tabs">
+                        <div class="sub-sub-tab active" onclick="showSubSubTab('overview-details')">详情</div>
+                        <div class="sub-sub-tab" onclick="showSubSubTab('overview-examples')">示例</div>
+                    </div>
+
+                    <!-- 三级子选卡内容 -->
+                    <div id="overview-details" class="sub-sub-tab-content">
+                        <h3>API 概述详情</h3>
+                        <p>详细描述API的功能和结构。</p>
+                    </div>
+                    <div id="overview-examples" class="sub-sub-tab-content" style="display: none;">
+                        <h3>API 概述示例</h3>
+                        <p>提供API使用的示例代码。</p>
+                    </div>
                 </div>
 
                 <div id="authentication" class="sub-tab-content" style="display: none;">
                     <h2>认证</h2>
                     <p>API 需要使用API密钥进行认证，您可以在设置中找到您的API密钥。</p>
+
+                    <!-- 三级子选卡 -->
+                    <div class="sub-sub-tabs">
+                        <div class="sub-sub-tab active" onclick="showSubSubTab('authentication-method')">认证方法</div>
+                        <div class="sub-sub-tab" onclick="showSubSubTab('authentication-token')">Token 生成</div>
+                    </div>
+
+                    <!-- 三级子选卡内容 -->
+                    <div id="authentication-method" class="sub-sub-tab-content">
+                        <h3>认证方法</h3>
+                        <p>说明如何使用API密钥进行认证。</p>
+                    </div>
+                    <div id="authentication-token" class="sub-sub-tab-content" style="display: none;">
+                        <h3>Token 生成</h3>
+                        <p>如何生成和管理API Token。</p>
+                    </div>
                 </div>
 
                 <div id="endpoints" class="sub-tab-content" style="display: none;">
                     <h2>端点</h2>
                     <p>我们的API提供了多种不同的端点，允许您进行不同的操作。</p>
+
+                    <!-- 三级子选卡 -->
+                    <div class="sub-sub-tabs">
+                        <div class="sub-sub-tab active" onclick="showSubSubTab('endpoints-get')">GET 请求</div>
+                        <div class="sub-sub-tab" onclick="showSubSubTab('endpoints-post')">POST 请求</div>
+                    </div>
+
+                    <!-- 三级子选卡内容 -->
+                    <div id="endpoints-get" class="sub-sub-tab-content">
+                        <h3>GET 请求</h3>
+                        <p>如何使用GET请求来获取数据。</p>
+                    </div>
+                    <div id="endpoints-post" class="sub-sub-tab-content" style="display: none;">
+                        <h3>POST 请求</h3>
+                        <p>如何使用POST请求来提交数据。</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -171,6 +241,25 @@
                 button.classList.remove('active');
             });
             document.querySelector(`.sub-tab[onclick="showSubTab('${subTab}')"]`).classList.add('active');
+        }
+
+        // 切换API三级子选卡
+        function showSubSubTab(subSubTab) {
+            // 隐藏所有三级子选卡内容
+            const allSubSubTabs = document.querySelectorAll('.sub-sub-tab-content');
+            allSubSubTabs.forEach(subSubTabContent => {
+                subSubTabContent.style.display = 'none';
+            });
+
+            // 激活对应的三级子选卡内容
+            document.getElementById(subSubTab).style.display = 'block';
+
+            // 更新三级子选卡的激活状态
+            const allSubSubTabButtons = document.querySelectorAll('.sub-sub-tab');
+            allSubSubTabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+            document.querySelector(`.sub-sub-tab[onclick="showSubSubTab('${subSubTab}')"]`).classList.add('active');
         }
     </script>
 
