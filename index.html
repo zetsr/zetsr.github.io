@@ -15,7 +15,7 @@
             display: flex; /* 使用flex布局 */
             justify-content: center; /* 水平居中 */
             /* align-items: center; /* 垂直居中 */
-            /* height: 100vh; /* 使body占满整个屏幕高度 */
+            height: 100vh; /* 使body占满整个屏幕高度 */
             text-align: center; /* 确保所有文本都居中 */
         }
 
@@ -102,18 +102,42 @@
         }
 
         .link-container a {
-            color: #66cc66;
             text-decoration: none;
             font-size: 16px;
-            border: 1px solid #66cc66;
+            border: 1px solid;
             padding: 10px;
             border-radius: 5px;
             transition: background-color 0.3s;
             margin: 0 5px; /* 增加间距 */
         }
 
-        .link-container a:hover {
+        .link-container a.online {
+            color: #66cc66;
+            border-color: #66cc66;
+        }
+
+        .link-container a.online:hover {
             background-color: #66cc66;
+            color: #1a1a1a;
+        }
+
+        .link-container a.offline {
+            color: #f1c232;
+            border-color: #f1c232;
+        }
+
+        .link-container a.offline:hover {
+            background-color: #f1c232;
+            color: #1a1a1a;
+        }
+
+        .link-container a.closed {
+            color: #ff6666;
+            border-color: #ff6666;
+        }
+
+        .link-container a.closed:hover {
+            background-color: #ff6666;
             color: #1a1a1a;
         }
 
@@ -194,7 +218,7 @@
                     <!-- 三级子选卡内容 -->
                     <div id="server1-link" class="sub-sub-tab-content">
                         <div class="link-container">
-                            <a href="steam://connect/110.42.107.181:1337" target="_blank">[宁波] Zetsr HvH | 纯净服 | 无规则</a>
+                            <a href="steam://connect/110.42.107.181:1337" target="_blank" class="online">[宁波] Zetsr HvH | 纯净服 | 无规则</a>
                         </div>
                     </div>
                 </div>
@@ -205,7 +229,7 @@
 
                     <div id="server2-link" class="sub-sub-tab-content">
                         <div class="link-container">
-                            <a href="steam://connect/127.0.0.1:1337" target="_blank">暂无</a>
+                            <a href="steam://connect/127.0.0.1:1337" target="_blank" class="closed">暂无</a>
                         </div>
                     </div>
                 </div>
@@ -217,10 +241,10 @@
 
                     <div id="server3-link" class="sub-sub-tab-content">
                         <div class="link-container">
-                            <a href="steam://connect/47.113.101.150:27015" target="_blank">[CN] New Dawn #6</a>
-                            <a href="steam://connect/106.53.49.228:27015" target="_blank">[CN] New Dawn #7 (Test Map)</a>
-                            <a href="steam://connect/106.53.49.228:27016" target="_blank">[CN] New Dawn #8 (Death Match)</a>
-                            <a href="steam://connect/47.113.101.150:27016" target="_blank">[CN] New Dawn #9</a>
+                            <a href="steam://connect/47.113.101.150:27015" target="_blank" class="online">[CN] New Dawn #6</a>
+                            <a href="steam://connect/106.53.49.228:27015" target="_blank" class="online">[CN] New Dawn #7 (Test Map)</a>
+                            <a href="steam://connect/106.53.49.228:27016" target="_blank" class="online">[CN] New Dawn #8 (Death Match)</a>
+                            <a href="steam://connect/47.113.101.150:27016" target="_blank" class="online">[CN] New Dawn #9</a>
                         </div>
                     </div>
                 </div>
@@ -231,10 +255,11 @@
 
                     <div id="server4-link" class="sub-sub-tab-content">
                         <div class="link-container">
-                            <a href="steam://connect/110.42.41.253:27015" target="_blank">[CN] New Dawn #1</a>
-                            <a href="steam://connect/110.42.41.253:27016" target="_blank">[CN] New Dawn #2</a>
-                            <a href="steam://connect/110.42.41.253:27017" target="_blank">[CN] New Dawn #3 (Test Map)</a>
-                            <a href="steam://connect/110.42.41.253:27018" target="_blank">[CN] New Dawn #4 (Death Match)</a>
+                            <a href="steam://connect/110.42.41.253:27015" target="_blank" class="online">[CN] New Dawn #1</a>
+                            <a href="steam://connect/110.42.41.253:27016" target="_blank" class="online">[CN] New Dawn #2</a>
+                            <a href="steam://connect/110.42.41.253:27017" target="_blank" class="online">[CN] New Dawn #3 (Test Map)</a>
+                            <a href="steam://connect/110.42.41.253:27018" target="_blank" class="online">[CN] New Dawn #4 (Death Match)</a>
+                            <a href="steam://connect/220.231.146.136:27015" target="_blank" class="online">[CN] New Dawn #2</a>
                         </div>
                     </div>
                 </div>
@@ -245,7 +270,7 @@
 
                     <div id="server5-link" class="sub-sub-tab-content">
                         <div class="link-container">
-                            <a href="steam://connect/106.53.49.228:27017" target="_blank">[CN] New Dawn #10</a>
+                            <a href="steam://connect/106.53.49.228:27017" target="_blank" class="online">[CN] New Dawn #10</a>
                         </div>
                     </div>
                 </div>
