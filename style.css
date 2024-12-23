@@ -1,36 +1,53 @@
-/* 公共样式 */
+/* 深色主题 */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
-  
-  #header, #footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 20px;
-  }
-  
-  #tabs {
-    margin: 20px;
-  }
-  
-  .tab-button {
-    background-color: #f1f1f1;
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin: 0 5px;
-    cursor: pointer;
-  }
-  
-  .tab-button.active {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
-  #content {
-    padding: 20px;
-    background-color: #f9f9f9;
-  }
-  
+  font-family: Arial, sans-serif;
+  background-color: #181818;
+  color: #f1f1f1;
+  margin: 0;
+  padding: 0;
+}
+
+#header, #footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+#tabs {
+  margin: 20px;
+}
+
+.tab-button {
+  background-color: #444;
+  border: 1px solid #666;
+  padding: 10px;
+  margin: 0 5px;
+  cursor: pointer;
+  color: #bbb;
+  transition: background-color 0.3s;
+}
+
+.tab-button:hover {
+  background-color: #555;
+}
+
+.tab-button.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+#content {
+  padding: 20px;
+  background-color: #222;
+  border-radius: 8px;
+}
+
+a {
+  color: #4CAF50;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

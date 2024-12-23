@@ -39,6 +39,7 @@
       .then(data => {
         document.getElementById('tabs').innerHTML = data;
         initTabs();
+        loadContentFromURL();  // 根据URL加载内容
       });
   </script>
 </body>
