@@ -52,7 +52,7 @@
             overflow-y: auto;
         }
 
-        /* API 子选卡样式 */
+        /* 子选卡样式 */
         .sub-tabs {
             display: flex;
             margin-top: 20px;
@@ -74,7 +74,7 @@
             border-bottom: 2px solid rgb(200, 200, 200);
         }
 
-        /* API 三级子选卡样式 */
+        /* 三级子选卡样式 */
         .sub-sub-tabs {
             display: flex;
             margin-top: 20px;
@@ -115,6 +115,7 @@
         <div class="tabs">
             <div class="tab active" onclick="showTab('home')">主页</div>
             <div class="tab" onclick="showTab('api')">API 文档</div>
+            <div class="tab" onclick="showTab('server')">服务器</div> <!-- 新增的服务器选卡 -->
         </div>
 
         <!-- 内容区 -->
@@ -129,77 +130,89 @@
             <div id="api" class="tab-content" style="display: none;">
                 <h1>API 文档</h1>
                 <p>在这里您可以查看我们API的详细文档。</p>
-                
                 <!-- API 子选卡 -->
                 <div class="sub-tabs">
                     <div class="sub-tab active" onclick="showSubTab('overview')">概述</div>
                     <div class="sub-tab" onclick="showSubTab('authentication')">认证</div>
                     <div class="sub-tab" onclick="showSubTab('endpoints')">端点</div>
                 </div>
-
                 <!-- 子选卡内容 -->
                 <div id="overview" class="sub-tab-content">
                     <h2>API 概述</h2>
                     <p>我们的API非常简单易用，旨在帮助您快速集成。</p>
-
-                    <!-- 三级子选卡 -->
-                    <div class="sub-sub-tabs">
-                        <div class="sub-sub-tab active" onclick="showSubSubTab('overview-details')">详情</div>
-                        <div class="sub-sub-tab" onclick="showSubSubTab('overview-examples')">示例</div>
-                    </div>
-
-                    <!-- 三级子选卡内容 -->
-                    <div id="overview-details" class="sub-sub-tab-content">
-                        <h3>API 概述详情</h3>
-                        <p>详细描述API的功能和结构。</p>
-                    </div>
-                    <div id="overview-examples" class="sub-sub-tab-content" style="display: none;">
-                        <h3>API 概述示例</h3>
-                        <p>提供API使用的示例代码。</p>
-                    </div>
                 </div>
-
                 <div id="authentication" class="sub-tab-content" style="display: none;">
                     <h2>认证</h2>
                     <p>API 需要使用API密钥进行认证，您可以在设置中找到您的API密钥。</p>
-
-                    <!-- 三级子选卡 -->
-                    <div class="sub-sub-tabs">
-                        <div class="sub-sub-tab active" onclick="showSubSubTab('authentication-method')">认证方法</div>
-                        <div class="sub-sub-tab" onclick="showSubSubTab('authentication-token')">Token 生成</div>
-                    </div>
-
-                    <!-- 三级子选卡内容 -->
-                    <div id="authentication-method" class="sub-sub-tab-content">
-                        <h3>认证方法</h3>
-                        <p>说明如何使用API密钥进行认证。</p>
-                    </div>
-                    <div id="authentication-token" class="sub-sub-tab-content" style="display: none;">
-                        <h3>Token 生成</h3>
-                        <p>如何生成和管理API Token。</p>
-                    </div>
                 </div>
-
                 <div id="endpoints" class="sub-tab-content" style="display: none;">
                     <h2>端点</h2>
                     <p>我们的API提供了多种不同的端点，允许您进行不同的操作。</p>
+                </div>
+            </div>
+
+            <!-- 服务器内容 -->
+            <div id="server" class="tab-content" style="display: none;">
+                <h1>服务器管理</h1>
+                <p>在这里您可以管理服务器的各种设置和操作。</p>
+
+                <!-- 服务器子选卡 -->
+                <div class="sub-tabs">
+                    <div class="sub-tab active" onclick="showSubTab('server1')">服务器 1</div>
+                    <div class="sub-tab" onclick="showSubTab('server2')">服务器 2</div>
+                    <div class="sub-tab" onclick="showSubTab('server3')">服务器 3</div>
+                    <div class="sub-tab" onclick="showSubTab('server4')">服务器 4</div>
+                    <div class="sub-tab" onclick="showSubTab('server5')">服务器 5</div>
+                </div>
+
+                <!-- 服务器子选卡内容 -->
+                <div id="server1" class="sub-tab-content">
+                    <h2>服务器 1</h2>
+                    <p>管理服务器 1 的详细信息。</p>
 
                     <!-- 三级子选卡 -->
                     <div class="sub-sub-tabs">
-                        <div class="sub-sub-tab active" onclick="showSubSubTab('endpoints-get')">GET 请求</div>
-                        <div class="sub-sub-tab" onclick="showSubSubTab('endpoints-post')">POST 请求</div>
+                        <div class="sub-sub-tab active" onclick="showSubSubTab('server1-config')">配置</div>
+                        <div class="sub-sub-tab" onclick="showSubSubTab('server1-status')">状态</div>
+                        <div class="sub-sub-tab" onclick="showSubSubTab('server1-logs')">日志</div>
+                        <div class="sub-sub-tab" onclick="showSubSubTab('server1-backup')">备份</div>
+                        <div class="sub-sub-tab" onclick="showSubSubTab('server1-security')">安全</div>
+                        <div class="sub-sub-tab" onclick="showSubSubTab('server1-performance')">性能</div>
+                        <div class="sub-sub-tab" onclick="showSubSubTab('server1-users')">用户</div>
+                        <div class="sub-sub-tab" onclick="showSubSubTab('server1-network')">网络</div>
+                        <div class="sub-sub-tab" onclick="showSubSubTab('server1-uptime')">运行时间</div>
+                        <div class="sub-sub-tab" onclick="showSubSubTab('server1-update')">更新</div>
                     </div>
 
                     <!-- 三级子选卡内容 -->
-                    <div id="endpoints-get" class="sub-sub-tab-content">
-                        <h3>GET 请求</h3>
-                        <p>如何使用GET请求来获取数据。</p>
+                    <div id="server1-config" class="sub-sub-tab-content">
+                        <h3>配置</h3>
+                        <p>修改服务器 1 的配置。</p>
                     </div>
-                    <div id="endpoints-post" class="sub-sub-tab-content" style="display: none;">
-                        <h3>POST 请求</h3>
-                        <p>如何使用POST请求来提交数据。</p>
+                    <div id="server1-status" class="sub-sub-tab-content" style="display: none;">
+                        <h3>状态</h3>
+                        <p>查看服务器 1 的当前状态。</p>
                     </div>
+                    <div id="server1-logs" class="sub-sub-tab-content" style="display: none;">
+                        <h3>日志</h3>
+                        <p>查看服务器 1 的日志。</p>
+                    </div>
+                    <!-- 其他内容... -->
                 </div>
+
+                <!-- 服务器2、服务器3、...内容结构同上 -->
+                <div id="server2" class="sub-tab-content" style="display: none;">
+                    <h2>服务器 2</h2>
+                    <p>管理服务器 2 的详细信息。</p>
+                    <!-- 服务器2的三级子选卡内容... -->
+                </div>
+
+                <div id="server3" class="sub-tab-content" style="display: none;">
+                    <h2>服务器 3</h2>
+                    <p>管理服务器 3 的详细信息。</p>
+                    <!-- 服务器3的三级子选卡内容... -->
+                </div>
+                <!-- 其他服务器的内容可以按此方式添加 -->
             </div>
         </div>
     </div>
@@ -224,7 +237,7 @@
             document.querySelector(`.tab[onclick="showTab('${tab}')"]`).classList.add('active');
         }
 
-        // 切换API子选卡
+        // 切换子选卡
         function showSubTab(subTab) {
             // 隐藏所有子选卡内容
             const allSubTabs = document.querySelectorAll('.sub-tab-content');
@@ -243,7 +256,7 @@
             document.querySelector(`.sub-tab[onclick="showSubTab('${subTab}')"]`).classList.add('active');
         }
 
-        // 切换API三级子选卡
+        // 切换三级子选卡
         function showSubSubTab(subSubTab) {
             // 隐藏所有三级子选卡内容
             const allSubSubTabs = document.querySelectorAll('.sub-sub-tab-content');
