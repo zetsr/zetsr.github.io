@@ -1,28 +1,178 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>zetsr :)</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>静态网站 - 主页 & API 文档</title>
+    <style>
+        /* 深色主题样式 */
+        body {
+            background-color: #1a1a1a;
+            color: rgb(200, 200, 200);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* 选卡容器 */
+        .tabs {
+            display: flex;
+            background-color: #333;
+            border-bottom: 1px solid rgb(200, 200, 200);
+        }
+
+        .tab {
+            padding: 15px 30px;
+            cursor: pointer;
+            color: rgb(200, 200, 200);
+            background-color: #444;
+            border: 1px solid #333;
+            transition: background-color 0.3s;
+        }
+
+        .tab:hover {
+            background-color: #555;
+        }
+
+        .tab.active {
+            background-color: #222;
+            border-bottom: 2px solid rgb(200, 200, 200);
+        }
+
+        .content {
+            padding: 20px;
+            background-color: #222;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        /* API 子选卡样式 */
+        .sub-tabs {
+            display: flex;
+            margin-top: 20px;
+            border-top: 1px solid rgb(200, 200, 200);
+            padding-top: 10px;
+        }
+
+        .sub-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            color: rgb(200, 200, 200);
+            background-color: #444;
+            margin-right: 10px;
+            border: 1px solid #333;
+        }
+
+        .sub-tab.active {
+            background-color: #333;
+            border-bottom: 2px solid rgb(200, 200, 200);
+        }
+
+        /* 响应式样式 */
+        @media (max-width: 768px) {
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab {
+                padding: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- 侧边栏（选卡） -->
-  <div id="tabs">
-    <button class="tab-button" id="home-tab">主页</button>
-    <button class="tab-button" id="api-tab">API 文档</button>
-  </div>
 
-  <!-- 主要内容区 -->
-  <div id="content"></div>
+    <div class="container">
+        <!-- 主选卡 -->
+        <div class="tabs">
+            <div class="tab active" onclick="showTab('home')">主页</div>
+            <div class="tab" onclick="showTab('api')">API 文档</div>
+        </div>
 
-  <script src="js/app.js"></script>
-  <script src="js/tab.js"></script>
-  <script src="js/home.js"></script>
-  <script src="js/api.js"></script>
-  <script>
-    // 初始化内容加载
-    loadContentFromURL();
-  </script>
+        <!-- 内容区 -->
+        <div class="content" id="content">
+            <!-- 主页内容 -->
+            <div id="home" class="tab-content">
+                <h1>欢迎来到我们的站点</h1>
+                <p>这是主页，您可以在这里找到各种有用的信息。</p>
+            </div>
+
+            <!-- API 文档内容 -->
+            <div id="api" class="tab-content" style="display: none;">
+                <h1>API 文档</h1>
+                <p>在这里您可以查看我们API的详细文档。</p>
+                
+                <!-- API 子选卡 -->
+                <div class="sub-tabs">
+                    <div class="sub-tab active" onclick="showSubTab('overview')">概述</div>
+                    <div class="sub-tab" onclick="showSubTab('authentication')">认证</div>
+                    <div class="sub-tab" onclick="showSubTab('endpoints')">端点</div>
+                </div>
+
+                <!-- 子选卡内容 -->
+                <div id="overview" class="sub-tab-content">
+                    <h2>API 概述</h2>
+                    <p>我们的API非常简单易用，旨在帮助您快速集成。</p>
+                </div>
+
+                <div id="authentication" class="sub-tab-content" style="display: none;">
+                    <h2>认证</h2>
+                    <p>API 需要使用API密钥进行认证，您可以在设置中找到您的API密钥。</p>
+                </div>
+
+                <div id="endpoints" class="sub-tab-content" style="display: none;">
+                    <h2>端点</h2>
+                    <p>我们的API提供了多种不同的端点，允许您进行不同的操作。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 切换主选卡
+        function showTab(tab) {
+            // 隐藏所有选卡内容
+            const allTabs = document.querySelectorAll('.tab-content');
+            allTabs.forEach(tabContent => {
+                tabContent.style.display = 'none';
+            });
+
+            // 激活对应的选卡
+            document.getElementById(tab).style.display = 'block';
+
+            // 更新选卡的激活状态
+            const allTabButtons = document.querySelectorAll('.tab');
+            allTabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+            document.querySelector(`.tab[onclick="showTab('${tab}')"]`).classList.add('active');
+        }
+
+        // 切换API子选卡
+        function showSubTab(subTab) {
+            // 隐藏所有子选卡内容
+            const allSubTabs = document.querySelectorAll('.sub-tab-content');
+            allSubTabs.forEach(subTabContent => {
+                subTabContent.style.display = 'none';
+            });
+
+            // 激活对应的子选卡内容
+            document.getElementById(subTab).style.display = 'block';
+
+            // 更新子选卡的激活状态
+            const allSubTabButtons = document.querySelectorAll('.sub-tab');
+            allSubTabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+            document.querySelector(`.sub-tab[onclick="showSubTab('${subTab}')"]`).classList.add('active');
+        }
+    </script>
+
 </body>
 </html>
