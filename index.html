@@ -1,505 +1,481 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zetsr HvH - Website</title>
-    <style>
-        /* 深色主题 (默认) */
-        body {
-            background-color: #1a1a1a;
-            color: rgb(200, 200, 200);
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            text-align: center;
-            transition: background-color 0.5s ease, color 0.5s ease; /* 主题颜色过渡 */
-        }
-        body.light-theme {
-            background-color: #f0f0f0;
-            color: #333;
-        }
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            width: 100%;
-            max-width: 1200px;
-            box-sizing: border-box;
-            background-color: #222;
-            border-radius: 12px;
-            padding: 25px;
-            opacity: 0.95;
-            transition: background-color 0.5s ease, border-radius 0.5s ease, padding 0.3s ease, opacity 0.5s ease; /* 主题颜色过渡 */
-        }
-        .light-theme .container {
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .container:hover {
-            opacity: 1;
-            background-color: #282828;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-        }
-        .light-theme .container:hover {
-            background-color: #f8f8f8;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        }
-        .tabs {
-            display: flex;
-            background-color: #333;
-            border-bottom: 1px solid rgb(200, 200, 200);
-            width: 100%;
-            justify-content: center;
-            text-align: center;
-            border-radius: 8px 8px 0 0;
-            overflow: hidden;
-            transition: border-radius 0.3s ease, background-color 0.5s ease, border-bottom-color 0.5s ease; /* 主题颜色过渡 */
-        }
-        .light-theme .tabs {
-            background-color: #eee;
-            border-bottom-color: #ccc;
-        }
-        .tabs:hover {
-            border-radius: 12px 12px 0 0;
-        }
-        .tab {
-            padding: 15px 30px;
-            cursor: pointer;
-            color: rgb(200, 200, 200);
-            background-color: #444;
-            border: 1px solid #333;
-            border-radius: 8px;
-            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.5s ease; /* 主题颜色过渡 */
-            margin: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-        .light-theme .tab {
-            background-color: #ddd;
-            color: #555;
-            border-color: #ccc;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .tab:first-child {
-            margin-left: 10px;
-        }
-        .tab:last-child {
-            margin-right: 10px;
-        }
-        .tab:hover {
-            background-color: #555;
-            color: #eee;
-            transform: scale(1.05);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-        .light-theme .tab:hover {
-            background-color: #ccc;
-            color: #444;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-        }
-        .tab.active {
-            background-color: #222;
-            border-bottom: 2px solid rgb(200, 200, 200);
-            color: #fff;
-            transform: translateY(-2px);
-        }
-        .light-theme .tab.active {
-            background-color: #fff;
-            border-bottom-color: #333;
-            color: #333;
-        }
-        .content {
-            padding: 25px;
-            background-color: #222;
-            flex-grow: 1;
-            overflow-y: auto;
-            width: 100%;
-            box-sizing: border-box;
-            text-align: center;
-            border-radius: 0 0 12px 12px;
-            opacity: 0.95;
-            transition: padding 0.3s ease, border-radius 0.5s ease, opacity 0.5s ease, background-color 0.5s ease; /* 主题颜色过渡 */
-        }
-        .light-theme .content {
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .content:hover {
-            opacity: 1;
-            padding: 30px;
-            border-radius: 0 0 15px 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-        }
-        .light-theme .content:hover {
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        }
-        .tab-content {
-            animation: fadeIn 0.5s ease-out forwards;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 0.95; transform: translateY(0); }
-        }
-        .sub-tabs, .sub-sub-tabs {
-            display: flex;
-            justify-content: center;
-            margin-top: 25px;
-            border-top: 1px solid rgb(200, 200, 200);
-            padding-top: 15px;
-            width: 100%;
-            transition: border-top-color 0.5s ease; /* 主题颜色过渡 */
-        }
-        .light-theme .sub-tabs, .light-theme .sub-sub-tabs {
-            border-top-color: #ccc;
-        }
-        .sub-tab, .sub-sub-tab {
-            padding: 12px 25px;
-            cursor: pointer;
-            color: rgb(200, 200, 200);
-            background-color: #444;
-            margin: 5px;
-            border: 1px solid #333;
-            border-radius: 8px;
-            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.5s ease; /* 主题颜色过渡 */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-        .light-theme .sub-tab, .light-theme .sub-sub-tab {
-            background-color: #ddd;
-            color: #555;
-            border-color: #ccc;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .sub-tab:hover, .sub-sub-tab:hover {
-            background-color: #555;
-            color: #eee;
-            transform: scale(1.05);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-        .light-theme .sub-tab:hover, .light-theme .sub-sub-tab:hover {
-            background-color: #ccc;
-            color: #444;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-        }
-        .sub-tab.active, .sub-sub-tab.active {
-            background-color: #333;
-            border-bottom: 2px solid rgb(200, 200, 200);
-            color: #fff;
-            transform: translateY(-2px);
-        }
-        .light-theme .sub-tab.active, .light-theme .sub-sub-tab.active {
-            background-color: #ccc; /* 浅色主题激活状态子选项卡背景色 */
-            border-bottom-color: #555;
-            color: #333;
-        }
-        /* 链接按钮样式 */
-        .link-container {
-            margin-top: 25px;
-            display: flex;
-            justify-content: center;
-            width: 100%;
-            transform-style: preserve-3d;
-        }
-        .link-container a {
-            text-decoration: none;
-            font-size: 16px;
-            border: 1px solid;
-            padding: 12px 20px;
-            border-radius: 8px;
-            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.5s ease; /* 主题颜色过渡 */
-            margin: 5px;
-            display: inline-block;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-        .light-theme .link-container a {
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .link-container a:hover {
-            transform: scale(1.1) translateZ(5px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-        }
-        .light-theme .link-container a:hover {
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-        }
-        .link-container a.online {
-            color: #66cc66;
-            border-color: #66cc66;
-        }
-        .light-theme .link-container a.online {
-            color: #008000; /* 浅色主题在线链接颜色 */
-            border-color: #008000;
-        }
-        .link-container a.online:hover {
-            background-color: #66cc66;
-            color: #1a1a1a;
-        }
-        .light-theme .link-container a.online:hover {
-            background-color: #008000;
-            color: #fff;
-        }
-        .link-container a.offline {
-            color: #f1c232;
-            border-color: #f1c232;
-        }
-        .light-theme .link-container a.offline {
-            color: #daa520; /* 浅色主题离线链接颜色 */
-            border-color: #daa520;
-        }
-        .link-container a.offline:hover {
-            background-color: #f1c232;
-            color: #1a1a1a;
-        }
-        .light-theme .link-container a.offline:hover {
-            background-color: #daa520;
-            color: #fff;
-        }
-        .link-container a.closed {
-            color: #ff6666;
-            border-color: #ff6666;
-        }
-        .light-theme .link-container a.closed {
-            color: #b22222; /* 浅色主题关闭链接颜色 */
-            border-color: #b22222;
-        }
-        .link-container a.closed:hover {
-            background-color: #ff6666;
-            color: #1a1a1a;
-        }
-        .light-theme .link-container a.closed:hover {
-            background-color: #b22222;
-            color: #fff;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zetsr HvH - Website</title>
+    <style>
+        /* 深色主题 (默认) */
+        body {
+            background-color: #1a1a1a;
+            color: rgb(200, 200, 200);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            transition: background-color 0.5s ease, color 0.5s ease; /* 主题颜色过渡 */
+        }
+        body.light-theme {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            max-width: 1200px;
+            box-sizing: border-box;
+            background-color: #222;
+            border-radius: 12px;
+            padding: 25px;
+            opacity: 0.95;
+            transition: background-color 0.5s ease, border-radius 0.5s ease, padding 0.3s ease, opacity 0.5s ease; /* 主题颜色过渡 */
+        }
+        .light-theme .container {
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .container:hover {
+            opacity: 1;
+            background-color: #282828;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+        .light-theme .container:hover {
+            background-color: #f8f8f8;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        .tabs {
+            display: flex;
+            background-color: #333;
+            border-bottom: 1px solid rgb(200, 200, 200);
+            width: 100%;
+            justify-content: center;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+            overflow: hidden;
+            transition: border-radius 0.3s ease, background-color 0.5s ease, border-bottom-color 0.5s ease; /* 主题颜色过渡 */
+        }
+        .light-theme .tabs {
+            background-color: #eee;
+            border-bottom-color: #ccc;
+        }
+        .tabs:hover {
+            border-radius: 12px 12px 0 0;
+        }
+        .tab {
+            padding: 15px 30px;
+            cursor: pointer;
+            color: rgb(200, 200, 200);
+            background-color: #444;
+            border: 1px solid #333;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.5s ease; /* 主题颜色过渡 */
+            margin: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .light-theme .tab {
+            background-color: #ddd;
+            color: #555;
+            border-color: #ccc;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .tab:first-child {
+            margin-left: 10px;
+        }
+        .tab:last-child {
+            margin-right: 10px;
+        }
+        .tab:hover {
+            background-color: #555;
+            color: #eee;
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .light-theme .tab:hover {
+            background-color: #ccc;
+            color: #444;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        .tab.active {
+            background-color: #222;
+            border-bottom: 2px solid rgb(200, 200, 200);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+        .light-theme .tab.active {
+            background-color: #fff;
+            border-bottom-color: #333;
+            color: #333;
+        }
+        .content {
+            padding: 25px;
+            background-color: #222;
+            flex-grow: 1;
+            overflow-y: auto;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+            border-radius: 0 0 12px 12px;
+            opacity: 0.95;
+            transition: padding 0.3s ease, border-radius 0.5s ease, opacity 0.5s ease, background-color 0.5s ease; /* 主题颜色过渡 */
+        }
+        .light-theme .content {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .content:hover {
+            opacity: 1;
+            padding: 30px;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+        .light-theme .content:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        .tab-content {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 0.95; transform: translateY(0); }
+        }
+        .sub-tabs, .sub-sub-tabs {
+            display: flex;
+            justify-content: center;
+            margin-top: 25px;
+            border-top: 1px solid rgb(200, 200, 200);
+            padding-top: 15px;
+            width: 100%;
+            transition: border-top-color 0.5s ease; /* 主题颜色过渡 */
+        }
+        .light-theme .sub-tabs, .light-theme .sub-sub-tabs {
+            border-top-color: #ccc;
+        }
+        .sub-tab, .sub-sub-tab {
+            padding: 12px 25px;
+            cursor: pointer;
+            color: rgb(200, 200, 200);
+            background-color: #444;
+            margin: 5px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.5s ease; /* 主题颜色过渡 */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .light-theme .sub-tab, .light-theme .sub-sub-tab {
+            background-color: #ddd;
+            color: #555;
+            border-color: #ccc;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .sub-tab:hover, .sub-sub-tab:hover {
+            background-color: #555;
+            color: #eee;
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .light-theme .sub-tab:hover, .light-theme .sub-sub-tab:hover {
+            background-color: #ccc;
+            color: #444;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        .sub-tab.active, .sub-sub-tab.active {
+            background-color: #333;
+            border-bottom: 2px solid rgb(200, 200, 200);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+        .light-theme .sub-tab.active, .light-theme .sub-sub-tab.active {
+            background-color: #ccc; /* 浅色主题激活状态子选项卡背景色 */
+            border-bottom-color: #555;
+            color: #333;
+        }
+        /* 链接按钮样式 */
+        .link-container {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            transform-style: preserve-3d;
+        }
+        .link-container a {
+            text-decoration: none;
+            font-size: 16px;
+            border: 1px solid;
+            padding: 12px 20px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.5s ease; /* 主题颜色过渡 */
+            margin: 5px;
+            display: inline-block;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .light-theme .link-container a {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .link-container a:hover {
+            transform: scale(1.1) translateZ(5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+        .light-theme .link-container a:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        .link-container a.online {
+            color: #66cc66;
+            border-color: #66cc66;
+        }
+        .light-theme .link-container a.online {
+            color: #008000; /* 浅色主题在线链接颜色 */
+            border-color: #008000;
+        }
+        .link-container a.online:hover {
+            background-color: #66cc66;
+            color: #1a1a1a;
+        }
+        .light-theme .link-container a.online:hover {
+            background-color: #008000;
+            color: #fff;
+        }
+        .link-container a.offline {
+            color: #f1c232;
+            border-color: #f1c232;
+        }
+        .light-theme .link-container a.offline {
+            color: #daa520; /* 浅色主题离线链接颜色 */
+            border-color: #daa520;
+        }
+        .link-container a.offline:hover {
+            background-color: #f1c232;
+            color: #1a1a1a;
+        }
+        .light-theme .link-container a.offline:hover {
+            background-color: #daa520;
+            color: #fff;
+        }
+        .link-container a.closed {
+            color: #ff6666;
+            border-color: #ff6666;
+        }
+        .light-theme .link-container a.closed {
+            color: #b22222; /* 浅色主题关闭链接颜色 */
+            border-color: #b22222;
+        }
+        .link-container a.closed:hover {
+            background-color: #ff6666;
+            color: #1a1a1a;
+        }
+        .light-theme .link-container a.closed:hover {
+            background-color: #b22222;
+            color: #fff;
+        }
 
-        /* 主题切换按钮样式 */
-        .theme-toggle-button {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            background-color: #555;
-            color: rgb(200, 200, 200);
-            border: none;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-        .theme-toggle-button:hover {
-            background-color: #777;
-        }
-        .light-theme .theme-toggle-button {
-            background-color: #ddd;
-            color: #555;
-        }
-        .light-theme .theme-toggle-button:hover {
-            background-color: #bbb;
-        }
+        /* 主题切换按钮样式 */
+        .theme-toggle-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #555;
+            color: rgb(200, 200, 200);
+            border: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .theme-toggle-button:hover {
+            background-color: #777;
+        }
+        .light-theme .theme-toggle-button {
+            background-color: #ddd;
+            color: #555;
+        }
+        .light-theme .theme-toggle-button:hover {
+            background-color: #bbb;
+        }
 
 
-        /* 响应式样式 */
-        @media (max-width: 768px) {
-            .tabs {
-                flex-direction: column;
-                border-radius: 12px;
-                overflow: visible;
-            }
-            .tab {
-                padding: 15px;
-                margin: 5px 10px;
-                border-radius: 10px;
-            }
-            .tab.active {
-                border-right: none;
-                border-bottom: 2px solid rgb(200, 200, 200);
-            }
-            .light-theme .tab.active {
-                border-bottom-color: #333;
-            }
-            .content {
-                border-radius: 12px;
-            }
-            .sub-tabs, .sub-sub-tabs {
-                margin-top: 20px;
-            }
-            .sub-tab, .sub-sub-tab {
-                padding: 10px 20px;
-                margin: 3px;
-                border-radius: 6px;
-            }
-            .link-container {
-                margin-top: 20px;
-                flex-direction: column;
-                align-items: center;
-            }
-            .link-container a {
-                margin: 5px 0;
-                border-radius: 6px;
-            }
+        /* 响应式样式 */
+        @media (max-width: 768px) {
+            .tabs {
+                flex-direction: column;
+                border-radius: 12px;
+                overflow: visible;
+            }
+            .tab {
+                padding: 15px;
+                margin: 5px 10px;
+                border-radius: 10px;
+            }
+            .tab.active {
+                border-right: none;
+                border-bottom: 2px solid rgb(200, 200, 200);
+            }
+            .light-theme .tab.active {
+                border-bottom-color: #333;
+            }
+            .content {
+                border-radius: 12px;
+            }
+            .sub-tabs, .sub-sub-tabs {
+                margin-top: 20px;
+            }
+            .sub-tab, .sub-sub-tab {
+                padding: 10px 20px;
+                margin: 3px;
+                border-radius: 6px;
+            }
+            .link-container {
+                margin-top: 20px;
+                flex-direction: column;
+                align-items: center;
+            }
+            .link-container a {
+                margin: 5px 0;
+                border-radius: 6px;
+            }
 
-            .theme-toggle-button {
-                top: 10px;
-                right: 10px;
-            }
-        }
-    </style>
+            .theme-toggle-button {
+                top: 10px;
+                right: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-    <button class="theme-toggle-button" onclick="toggleTheme()">切换白天模式</button>
+    <button class="theme-toggle-button" onclick="toggleTheme()">切换白天模式</button>
 
-    <div class="container">
-        <div class="tabs">
-            <div class="tab active" onclick="showTab('home')">主页</div>
-            <div class="tab" onclick="showTab('server')">服务器</div>
-            <div class="tab" onclick="showTab('api')">API 文档</div>
-        </div>
-        <div class="content" id="content">
-            <div id="home" class="tab-content">
-                <h1>Zetsr HvH</h1>
-                <p>非盈利游戏社区</p>
-                <p>欢迎来到 Zetsr HvH 社区！我们致力于为玩家提供最佳的游戏体验。在这里，您可以找到最新的服务器信息、API 文档以及更多内容。</p>
-                <p>我们的社区是非盈利性质的，所有服务器和资源都为了玩家免费开放。感谢您的支持！</p>
-                <p>如果您有任何问题或建议，欢迎通过API 文档页面提供的联系方式与我们联系。</p>
-            </div>
-            <div id="api" class="tab-content" style="display: none;">
-                <h1>API 文档</h1>
-                <p>在这里您可以查看我们API的详细文档。</p>
-                <div class="sub-tabs">
-                    <div class="sub-tab active" onclick="showSubTab('overview')">概述</div>
-                    <div class="sub-tab" onclick="showSubTab('authentication')">认证</div>
-                    <div class="sub-tab" onclick="showSubTab('endpoints')">端点</div>
-                </div>
-                <div id="overview" class="sub-tab-content">
-                    <h2>API 概述</h2>
-                    <p>我们的API非常简单易用，旨在帮助您快速集成。它基于RESTful架构，使用JSON格式进行数据交换，并提供清晰的端点和详细的文档。</p>
-                    <p>无论您是开发者还是社区成员，都可以通过API访问服务器状态、玩家数据等信息，以便进行二次开发或者构建相关工具。</p>
-                    <p>开始使用API之前，请务必阅读认证部分，以获取您的API密钥并了解如何进行身份验证。</p>
-                </div>
-                <div id="authentication" class="sub-tab-content" style="display: none;">
-                    <h2>认证</h2>
-                    <p>API 需要使用API密钥进行认证，您可以在设置中找到您的API密钥。API 密钥是您访问API的凭证，请妥善保管，不要泄露给他人。</p>
-                    <p>您可以在您的用户设置页面生成新的API 密钥或查看现有的API 密钥。每个API 密钥都与您的账户绑定，并具有相应的访问权限。</p>
-                    <p>在发送API 请求时，您需要在请求头中包含您的API 密钥。具体的认证方法请参考端点文档。</p>
-                </div>
-                <div id="endpoints" class="sub-tab-content" style="display: none;">
-                    <h2>端点</h2>
-                    <p>我们的API提供了多种不同的端点，允许您进行不同的操作。以下是一些主要的端点：</p>
-                    <ul>
-                        <li><strong>/servers</strong>: 获取服务器列表</li>
-                        <li><strong>/server/{serverId}</strong>: 获取特定服务器的详细信息</li>
-                        <li><strong>/player/{playerId}</strong>: 获取玩家信息</li>
-                        <li><strong>/status</strong>: 获取API状态</li>
-                    </ul>
-                    <p>每个端点都有详细的参数说明、请求方法和返回示例。请查阅具体的端点文档以获取更多信息。</p>
-                    <p>我们还会不断更新和增加新的端点，以满足不断变化的需求。请关注更新日志以获取最新信息。</p>
-                </div>
-            </div>
-            <div id="server" class="tab-content" style="display: none;">
-                <h1>服务器列表</h1>
-                <p>在这里您可以查看所有由我们托管的服务器。</p>
-                <p>我们目前提供CS:GO 和 CS:2 服务器。您可以根据您的喜好选择不同的服务器进行游戏。所有服务器都经过优化，以提供流畅和稳定的游戏体验。</p>
-                <p>您可以点击服务器链接直接加入游戏。服务器状态会实时更新，方便您了解服务器的运行状况。</p>
-                <div class="sub-tabs">
-                    <div class="sub-tab active" onclick="showSubTab('server1')">CS:GO</div>
-                    <div class="sub-tab" onclick="showSubTab('server2')">CS:2</div>
-                </div>
-                <div id="server1" class="sub-tab-content">
-                    <h2>CS:GO 服务器列表</h2>
-                    <p>以下是我们的 CS:GO 服务器列表。点击服务器名称即可加入游戏。</p>
-                    <div id="server1-link" class="sub-sub-tab-content">
-                        <div class="link-container">
-                            <a href="steam://connect/160.202.231.39:27015" target="_blank" class="online">[十堰] Zetsr HvH | 搭档图纯净 | 无规则</a>
-                            <a href="steam://connect/156.225.30.67:27015" target="_blank" class="online">[香港] Zetsr HvH | 搭档图纯净 | 无规则</a>
-                            <a href="steam://connect/106.53.49.228:27015" target="_blank" class="online">[广州] Zetsr HvH | 搭档图纯净 | 无规则</a>
-                            <a href="steam://connect/47.113.101.150:27015" target="_blank" class="online">[深圳] Zetsr HvH | 搭档图纯净 | 无规则</a>
-                        </div>
-                    </div>
-                </div>
-                <div id="server2" class="sub-tab-content" style="display: none;">
-                    <h2>CS:2 服务器列表</h2>
-                    <p>以下是我们的 CS:2 服务器列表。敬请期待！</p>
-                    <p>CS:2 服务器正在紧张筹备中，预计将于近期上线。请关注我们的社区公告，以获取最新的服务器上线信息。</p>
-                    <div id="server2-link" class="sub-sub-tab-content">
-                        <div class="link-container">
-                            <p>暂无服务器列表，敬请期待！</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <p style="opacity: 0.7; transition: opacity 0.3s ease;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">Zetsr HvH 2024-2025</p>
-    </div>
-    <script>
-        let currentTheme = 'dark'; // 默认主题为深色
+    <div class="container">
+        <div class="tabs">
+            <div class="tab active" onclick="showTab('home')">主页</div>
+            <div class="tab" onclick="showTab('server')">服务器</div>
+            <div class="tab" onclick="showTab('contact')">联系方式</div>
+        </div>
+        <div class="content" id="content">
+            <div id="home" class="tab-content">
+                <h1>Zetsr HvH</h1>
+                <p>非盈利游戏社区</p>
+                <p>欢迎来到 Zetsr HvH 社区！我们致力于为玩家提供最佳的游戏体验。在这里，您可以找到最新的服务器信息以及更多内容。</p>
+                <p>我们的社区是非盈利性质的，所有服务器和资源都为了玩家免费开放。感谢您的支持！</p>
+                <p>如果您有任何问题或建议，欢迎通过联系方式页面与我们联系。</p>
+            </div>
+            <div id="contact" class="tab-content" style="display: none;">
+                <h1>联系方式</h1>
+                <p>您可以通过以下方式联系我们。</p>
+                <div class="link-container">
+                    <a href="https://example.com/discord" target="_blank" class="">Discord 社区</a>
+                    <a href="https://example.com/telegram" target="_blank" class="">Telegram 频道</a>
+                    <a href="mailto:example@email.com" class="" target="_blank">电子邮件</a>
+                </div>
+            </div>
+            <div id="server" class="tab-content" style="display: none;">
+                <h1>服务器列表</h1>
+                <p>在这里您可以查看所有由我们托管的服务器。</p>
+                <p>我们目前提供CS:GO 和 CS:2 服务器。您可以根据您的喜好选择不同的服务器进行游戏。所有服务器都经过优化，以提供流畅和稳定的游戏体验。</p>
+                <p>您可以点击服务器链接直接加入游戏。服务器状态会实时更新，方便您了解服务器的运行状况。</p>
+                <div class="sub-tabs">
+                    <div class="sub-tab active" onclick="showSubTab('server1')">CS:GO</div>
+                    <div class="sub-tab" onclick="showSubTab('server2')">CS:2</div>
+                </div>
+                <div id="server1" class="sub-tab-content">
+                    <h2>CS:GO 服务器列表</h2>
+                    <p>以下是我们的 CS:GO 服务器列表。点击服务器名称即可加入游戏。</p>
+                    <div id="server1-link" class="sub-sub-tab-content">
+                        <div class="link-container">
+                            <a href="steam://connect/160.202.231.39:27015" target="_blank" class="online">[十堰] Zetsr HvH | 搭档图纯净 | 无规则</a>
+                            <a href="steam://connect/156.225.30.67:27015" target="_blank" class="online">[香港] Zetsr HvH | 搭档图纯净 | 无规则</a>
+                            <a href="steam://connect/106.53.49.228:27015" target="_blank" class="online">[广州] Zetsr HvH | 搭档图纯净 | 无规则</a>
+                            <a href="steam://connect/47.113.101.150:27015" target="_blank" class="online">[深圳] Zetsr HvH | 搭档图纯净 | 无规则</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="server2" class="sub-tab-content" style="display: none;">
+                    <h2>CS:2 服务器列表</h2>
+                    <p>以下是我们的 CS:2 服务器列表。敬请期待！</p>
+                    <p>CS:2 服务器正在紧张筹备中，预计将于近期上线。请关注我们的社区公告，以获取最新的服务器上线信息。</p>
+                    <div id="server2-link" class="sub-sub-tab-content">
+                        <div class="link-container">
+                            <p>暂无服务器列表，敬请期待！</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p style="opacity: 0.7; transition: opacity 0.3s ease;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">Zetsr HvH 2024-2025</p>
+    </div>
+    <script>
+        let currentTheme = 'dark'; // 默认主题为深色
 
-        // 切换主题模式
-        function toggleTheme() {
-            const body = document.body;
-            body.classList.toggle('light-theme');
-            currentTheme = body.classList.contains('light-theme') ? 'light' : 'dark';
-            const themeButton = document.querySelector('.theme-toggle-button');
-            themeButton.textContent = currentTheme === 'light' ? '切换夜间模式' : '切换白天模式'; // 更新按钮文字
-        }
+        // 切换主题模式
+        function toggleTheme() {
+            const body = document.body;
+            body.classList.toggle('light-theme');
+            currentTheme = body.classList.contains('light-theme') ? 'light' : 'dark';
+            const themeButton = document.querySelector('.theme-toggle-button');
+            themeButton.textContent = currentTheme === 'light' ? '切换夜间模式' : '切换白天模式'; // 更新按钮文字
+        }
 
 
-        // 切换主选卡
-        function showTab(tab) {
-            const allTabs = document.querySelectorAll('.tab-content');
-            allTabs.forEach(tabContent => {
-                tabContent.style.display = 'none';
-            });
-            document.getElementById(tab).style.display = 'block';
-            document.getElementById(tab).classList.add('tab-content'); // 确保添加动画类
+        // 切换主选卡
+        function showTab(tab) {
+            const allTabs = document.querySelectorAll('.tab-content');
+            allTabs.forEach(tabContent => {
+                tabContent.style.display = 'none';
+            });
+            document.getElementById(tab).style.display = 'block';
+            document.getElementById(tab).classList.add('tab-content'); // 确保添加动画类
 
-            const allTabButtons = document.querySelectorAll('.tab');
-            allTabButtons.forEach(button => {
-                button.classList.remove('active');
-            });
-            document.querySelector(`.tab[onclick="showTab('${tab}')"]`).classList.add('active');
+            const allTabButtons = document.querySelectorAll('.tab');
+            allTabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+            document.querySelector(`.tab[onclick="showTab('${tab}')"]`).classList.add('active');
 
-            // 当切换到 "服务器" 选项卡时，默认显示 server1 的子选项卡内容
-            if (tab === 'server') {
-                showSubTab('server1');
-            }
-        }
-        // 切换子选卡
-        function showSubTab(subTab) {
-            const allSubTabs = document.querySelectorAll('.sub-tab-content');
-            allSubTabs.forEach(subTabContent => {
-                subTabContent.style.display = 'none';
-            });
-            document.getElementById(subTab).style.display = 'block';
-            document.getElementById(subTab).classList.add('tab-content'); // 确保添加动画类
+            // 当切换到 "服务器" 选项卡时，默认显示 server1 的子选项卡内容
+            if (tab === 'server') {
+                showSubTab('server1');
+            }
+        }
+        // 切换子选卡
+        function showSubTab(subTab) {
+            const allSubTabs = document.querySelectorAll('.sub-tab-content');
+            allSubTabs.forEach(subTabContent => {
+                subTabContent.style.display = 'none';
+            });
+            document.getElementById(subTab).style.display = 'block';
+            document.getElementById(subTab).classList.add('tab-content'); // 确保添加动画类
 
-            const allSubTabButtons = document.querySelectorAll('.sub-tab');
-            allSubTabButtons.forEach(button => {
-                button.classList.remove('active');
-            });
-            document.querySelector(`.sub-tab[onclick="showSubTab('${subTab}')"]`).classList.add('active');
-        }
-        // 切换三级子选卡
-        function showSubSubTab(subSubTab) {
-            const allSubSubTabs = document.querySelectorAll('.sub-sub-tab-content');
-            allSubSubTabs.forEach(subSubTabContent => {
-                subSubTabContent.style.display = 'none';
-            });
-            document.getElementById(subSubTab).style.display = 'block';
-            document.getElementById(subSubTab).classList.add('tab-content'); // 确保添加动画类
+            const allSubTabButtons = document.querySelectorAll('.sub-tab');
+            allSubTabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+            document.querySelector(`.sub-tab[onclick="showSubTab('${subTab}')"]`).classList.add('active');
+        }
+        // 切换三级子选卡
+        function showSubSubTab(subSubTab) {
+            const allSubSubTabs = document.querySelectorAll('.sub-sub-tab-content');
+            allSubSubTabs.forEach(subSubTabContent => {
+                subSubTabContent.style.display = 'none';
+            });
+            document.getElementById(subSubTab).style.display = 'block';
+            document.getElementById(subSubTab).classList.add('tab-content'); // 确保添加动画类
 
-            const allSubSubTabButtons = document.querySelectorAll('.sub-sub-tab');
-            allSubSubTabButtons.forEach(button => {
-                button.classList.remove('active');
-            });
-            document.querySelector(`.sub-sub-tab[onclick="showSubSubTab('${subSubTab}')"]`).classList.add('active');
-        }
+            const allSubSubTabButtons = document.querySelectorAll('.sub-sub-tab');
+            allSubSubTabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+            document.querySelector(`.sub-sub-tab[onclick="showSubSubTab('${subSubTab}')"]`).classList.add('active');
+        }
 
-        // 页面加载后，默认显示主页内容
-        window.onload = function() {
-            showTab('home');
-        };
-    </script>
+        // 页面加载后，默认显示主页内容
+        window.onload = function() {
+            showTab('home');
+        };
+    </script>
 </body>
 </html>
