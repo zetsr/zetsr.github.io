@@ -12,207 +12,277 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            display: flex; /* 使用flex布局 */
-            justify-content: center; /* 水平居中 */
-            /* align-items: center; /* 垂直居中 */
-            /* height: 100vh; /* 使body占满整个屏幕高度 */
-            text-align: center; /* 确保所有文本都居中 */
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            transition: background-color 0.5s ease; /* body背景颜色过渡动画 */
         }
-
         .container {
             display: flex;
             flex-direction: column;
-            align-items: center; /* 水平居中内容 */
-            justify-content: flex-start; /* 垂直方向上从上方开始布局 */
-            width: 100%; /* 使容器宽度占满 */
-            max-width: 1200px; /* 最大宽度，避免屏幕过宽时内容过于拉伸 */
-            box-sizing: border-box; /* 包括内边距和边框 */
-            background-color: #222; /* 背景颜色 */
-            border-radius: 8px; /* 圆角效果 */
-            padding: 20px; /* 适当的内边距 */
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            max-width: 1200px;
+            box-sizing: border-box;
+            background-color: #222;
+            border-radius: 12px; /* 更大的圆角 */
+            padding: 25px; /* 增加内边距 */
+            opacity: 0.95; /* 稍微降低不透明度增加层次感 */
+            transition: background-color 0.5s ease, border-radius 0.5s ease, padding 0.3s ease, opacity 0.5s ease; /* 容器过渡动画 */
         }
-
+        .container:hover {
+            opacity: 1; /* 鼠标悬停时恢复不透明度 */
+            background-color: #282828; /* 悬停时稍微改变背景颜色 */
+            border-radius: 15px; /* 悬停时轻微增加圆角 */
+            padding: 30px; /* 悬停时稍微增加内边距 */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); /* 悬停时增加阴影效果 */
+        }
         .tabs {
             display: flex;
             background-color: #333;
             border-bottom: 1px solid rgb(200, 200, 200);
-            width: 100%; /* 使选项卡的宽度占满容器 */
-            justify-content: center; /* 水平居中 */
-            text-align: center; /* 确保选项卡中的文本居中 */
+            width: 100%;
+            justify-content: center;
+            text-align: center;
+            border-radius: 8px 8px 0 0; /* 顶部圆角 */
+            overflow: hidden; /* 防止子元素溢出圆角 */
+            transition: border-radius 0.3s ease; /* 标签栏圆角过渡 */
         }
-
+        .tabs:hover {
+            border-radius: 12px 12px 0 0; /* 悬停时增加标签栏顶部圆角 */
+        }
         .tab {
             padding: 15px 30px;
             cursor: pointer;
             color: rgb(200, 200, 200);
             background-color: #444;
             border: 1px solid #333;
-            transition: background-color 0.3s;
-            margin: 0 5px; /* 增加间距 */
+            border-radius: 8px; /* 选项卡圆角 */
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease; /* 选项卡过渡动画 */
+            margin: 5px; /* 增加间距 */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 增加轻微阴影 */
         }
-
+        .tab:first-child {
+            margin-left: 10px; /* 调整第一个标签的左边距 */
+        }
+        .tab:last-child {
+            margin-right: 10px; /* 调整最后一个标签的右边距 */
+        }
         .tab:hover {
             background-color: #555;
+            color: #eee; /* 悬停时改变文字颜色 */
+            transform: scale(1.05); /* 悬停时轻微放大 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* 悬停时增加阴影 */
         }
-
         .tab.active {
             background-color: #222;
             border-bottom: 2px solid rgb(200, 200, 200);
+            color: #fff; /* 激活状态文字颜色 */
+            transform: translateY(-2px); /* 激活时稍微向上位移 */
         }
-
         .content {
-            padding: 20px;
+            padding: 25px; /* 增加内边距 */
             background-color: #222;
             flex-grow: 1;
             overflow-y: auto;
-            width: 100%; /* 使内容区宽度占满 */
+            width: 100%;
             box-sizing: border-box;
-            text-align: center; /* 确保内容中的文本居中 */
+            text-align: center;
+            border-radius: 0 0 12px 12px; /* 底部圆角 */
+            opacity: 0.95; /* 与container保持一致的不透明度 */
+            transition: padding 0.3s ease, border-radius 0.5s ease, opacity 0.5s ease; /* 内容区过渡动画 */
         }
-
+        .content:hover {
+            opacity: 1; /* 悬停时恢复不透明度 */
+            padding: 30px; /* 悬停时稍微增加内边距 */
+            border-radius: 0 0 15px 15px; /* 悬停时轻微增加底部圆角 */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); /* 悬停时增加阴影效果 */
+        }
+        .tab-content {
+            animation: fadeIn 0.5s ease-out forwards; /* 内容淡入动画 */
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 0.95; transform: translateY(0); }
+        }
         .sub-tabs, .sub-sub-tabs {
             display: flex;
-            justify-content: center; /* 水平居中 */
-            margin-top: 20px;
+            justify-content: center;
+            margin-top: 25px; /* 增加外边距 */
             border-top: 1px solid rgb(200, 200, 200);
-            padding-top: 10px;
+            padding-top: 15px; /* 增加内边距 */
             width: 100%;
         }
-
         .sub-tab, .sub-sub-tab {
-            padding: 10px 20px;
+            padding: 12px 25px; /* 调整内边距 */
             cursor: pointer;
             color: rgb(200, 200, 200);
             background-color: #444;
-            margin: 0 5px; /* 增加间距 */
+            margin: 5px;
             border: 1px solid #333;
+            border-radius: 8px; /* 子选项卡圆角 */
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease; /* 子选项卡过渡动画 */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 增加轻微阴影 */
         }
-
+        .sub-tab:hover, .sub-sub-tab:hover {
+            background-color: #555;
+            color: #eee; /* 悬停时改变文字颜色 */
+            transform: scale(1.05); /* 悬停时轻微放大 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* 悬停时增加阴影 */
+        }
         .sub-tab.active, .sub-sub-tab.active {
             background-color: #333;
             border-bottom: 2px solid rgb(200, 200, 200);
+            color: #fff; /* 激活状态文字颜色 */
+            transform: translateY(-2px); /* 激活时稍微向上位移 */
         }
-
         /* 链接按钮样式 */
         .link-container {
-            margin-top: 20px;
+            margin-top: 25px; /* 增加外边距 */
             display: flex;
-            justify-content: center; /* 水平居中 */
+            justify-content: center;
             width: 100%;
+            transform-style: preserve-3d; /* 启用3D变换 */
         }
-
         .link-container a {
             text-decoration: none;
             font-size: 16px;
             border: 1px solid;
-            padding: 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-            margin: 0 5px; /* 增加间距 */
+            padding: 12px 20px; /* 调整内边距 */
+            border-radius: 8px; /* 链接按钮圆角 */
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* 链接按钮过渡动画 */
+            margin: 5px;
+            display: inline-block; /* 使按钮可以设置transform */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 增加轻微阴影 */
         }
-
+        .link-container a:hover {
+            transform: scale(1.1) translateZ(5px); /* 悬停时轻微放大并向前突出 */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* 悬停时增加阴影 */
+        }
         .link-container a.online {
             color: #66cc66;
             border-color: #66cc66;
         }
-
         .link-container a.online:hover {
             background-color: #66cc66;
             color: #1a1a1a;
         }
-
         .link-container a.offline {
             color: #f1c232;
             border-color: #f1c232;
         }
-
         .link-container a.offline:hover {
             background-color: #f1c232;
             color: #1a1a1a;
         }
-
         .link-container a.closed {
             color: #ff6666;
             border-color: #ff6666;
         }
-
         .link-container a.closed:hover {
             background-color: #ff6666;
             color: #1a1a1a;
         }
-
         /* 响应式样式 */
         @media (max-width: 768px) {
             .tabs {
                 flex-direction: column;
+                border-radius: 12px; /* 垂直排列时也保持圆角 */
+                overflow: visible; /* 允许内容溢出以显示全部边框 */
             }
-
             .tab {
-                padding: 10px;
+                padding: 15px; /* 垂直标签页内边距 */
+                margin: 5px 10px; /* 调整垂直标签页间距 */
+                border-radius: 10px; /* 垂直标签页圆角 */
+            }
+            .tab.active {
+                border-right: none; /* 移除垂直标签页激活时的右边框 */
+                border-bottom: 2px solid rgb(200, 200, 200); /* 垂直标签页激活状态底边框 */
+            }
+            .content {
+                border-radius: 12px; /* 小屏幕内容区也保持圆角 */
+            }
+            .sub-tabs, .sub-sub-tabs {
+                margin-top: 20px; /* 调整小屏幕子标签外边距 */
+            }
+            .sub-tab, .sub-sub-tab {
+                padding: 10px 20px; /* 调整小屏幕子标签内边距 */
+                margin: 3px; /* 调整小屏幕子标签间距 */
+                border-radius: 6px; /* 小屏幕子标签圆角 */
+            }
+            .link-container {
+                margin-top: 20px; /* 调整小屏幕链接容器外边距 */
+                flex-direction: column; /* 小屏幕上链接垂直排列 */
+                align-items: center; /* 垂直排列时居中对齐 */
+            }
+            .link-container a {
+                margin: 5px 0; /* 垂直排列链接的间距 */
+                border-radius: 6px; /* 小屏幕链接按钮圆角 */
             }
         }
     </style>
 </head>
 <body>
-
     <div class="container">
-        <!-- 主选卡 -->
         <div class="tabs">
             <div class="tab active" onclick="showTab('home')">主页</div>
             <div class="tab" onclick="showTab('server')">服务器</div>
             <div class="tab" onclick="showTab('api')">API 文档</div>
         </div>
-
-        <!-- 内容区 -->
         <div class="content" id="content">
-            <!-- 主页内容 -->
             <div id="home" class="tab-content">
                 <h1>Zetsr HvH</h1>
                 <p>非盈利游戏社区</p>
+                <p>欢迎来到 Zetsr HvH 社区！我们致力于为玩家提供最佳的游戏体验。在这里，您可以找到最新的服务器信息、API 文档以及更多内容。</p>
+                <p>我们的社区是非盈利性质的，所有服务器和资源都为了玩家免费开放。感谢您的支持！</p>
+                <p>如果您有任何问题或建议，欢迎通过API 文档页面提供的联系方式与我们联系。</p>
             </div>
-
-            <!-- API 文档内容 -->
             <div id="api" class="tab-content" style="display: none;">
                 <h1>API 文档</h1>
                 <p>在这里您可以查看我们API的详细文档。</p>
-                <!-- API 子选卡 -->
                 <div class="sub-tabs">
                     <div class="sub-tab active" onclick="showSubTab('overview')">概述</div>
                     <div class="sub-tab" onclick="showSubTab('authentication')">认证</div>
                     <div class="sub-tab" onclick="showSubTab('endpoints')">端点</div>
                 </div>
-                <!-- 子选卡内容 -->
                 <div id="overview" class="sub-tab-content">
                     <h2>API 概述</h2>
-                    <p>我们的API非常简单易用，旨在帮助您快速集成。</p>
+                    <p>我们的API非常简单易用，旨在帮助您快速集成。它基于RESTful架构，使用JSON格式进行数据交换，并提供清晰的端点和详细的文档。</p>
+                    <p>无论您是开发者还是社区成员，都可以通过API访问服务器状态、玩家数据等信息，以便进行二次开发或者构建相关工具。</p>
+                    <p>开始使用API之前，请务必阅读认证部分，以获取您的API密钥并了解如何进行身份验证。</p>
                 </div>
                 <div id="authentication" class="sub-tab-content" style="display: none;">
                     <h2>认证</h2>
-                    <p>API 需要使用API密钥进行认证，您可以在设置中找到您的API密钥。</p>
+                    <p>API 需要使用API密钥进行认证，您可以在设置中找到您的API密钥。API 密钥是您访问API的凭证，请妥善保管，不要泄露给他人。</p>
+                    <p>您可以在您的用户设置页面生成新的API 密钥或查看现有的API 密钥。每个API 密钥都与您的账户绑定，并具有相应的访问权限。</p>
+                    <p>在发送API 请求时，您需要在请求头中包含您的API 密钥。具体的认证方法请参考端点文档。</p>
                 </div>
                 <div id="endpoints" class="sub-tab-content" style="display: none;">
                     <h2>端点</h2>
-                    <p>我们的API提供了多种不同的端点，允许您进行不同的操作。</p>
+                    <p>我们的API提供了多种不同的端点，允许您进行不同的操作。以下是一些主要的端点：</p>
+                    <ul>
+                        <li><strong>/servers</strong>: 获取服务器列表</li>
+                        <li><strong>/server/{serverId}</strong>: 获取特定服务器的详细信息</li>
+                        <li><strong>/player/{playerId}</strong>: 获取玩家信息</li>
+                        <li><strong>/status</strong>: 获取API状态</li>
+                    </ul>
+                    <p>每个端点都有详细的参数说明、请求方法和返回示例。请查阅具体的端点文档以获取更多信息。</p>
+                    <p>我们还会不断更新和增加新的端点，以满足不断变化的需求。请关注更新日志以获取最新信息。</p>
                 </div>
             </div>
-
-            <!-- 服务器内容 -->
             <div id="server" class="tab-content" style="display: none;">
                 <h1>服务器列表</h1>
                 <p>在这里您可以查看所有由我们托管的服务器。</p>
-
-                <!-- 服务器子选卡 -->
+                <p>我们目前提供CS:GO 和 CS:2 服务器。您可以根据您的喜好选择不同的服务器进行游戏。所有服务器都经过优化，以提供流畅和稳定的游戏体验。</p>
+                <p>您可以点击服务器链接直接加入游戏。服务器状态会实时更新，方便您了解服务器的运行状况。</p>
                 <div class="sub-tabs">
                     <div class="sub-tab active" onclick="showSubTab('server1')">CS:GO</div>
                     <div class="sub-tab" onclick="showSubTab('server2')">CS:2</div>
                 </div>
-
-                <!-- 服务器子选卡内容 -->
                 <div id="server1" class="sub-tab-content">
-                    <h2>CS:GO</h2>
-                    <p>Counter-Strike Global Offensive</p>
-
-                    <!-- 三级子选卡内容 -->
+                    <h2>CS:GO 服务器列表</h2>
+                    <p>以下是我们的 CS:GO 服务器列表。点击服务器名称即可加入游戏。</p>
                     <div id="server1-link" class="sub-sub-tab-content">
                         <div class="link-container">
                             <a href="steam://connect/160.202.231.39:27015" target="_blank" class="online">[十堰] Zetsr HvH | 搭档图纯净 | 无规则</a>
@@ -222,21 +292,20 @@
                         </div>
                     </div>
                 </div>
-
                 <div id="server2" class="sub-tab-content" style="display: none;">
-                    <h2>CS:2</h2>
-                    <p>Counter-Strike 2</p>
-
+                    <h2>CS:2 服务器列表</h2>
+                    <p>以下是我们的 CS:2 服务器列表。敬请期待！</p>
+                    <p>CS:2 服务器正在紧张筹备中，预计将于近期上线。请关注我们的社区公告，以获取最新的服务器上线信息。</p>
                     <div id="server2-link" class="sub-sub-tab-content">
                         <div class="link-container">
+                            <p>暂无服务器列表，敬请期待！</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <p>Zetsr HvH 2024-2025</p>
+        <p style="opacity: 0.7; transition: opacity 0.3s ease;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">Zetsr HvH 2024-2025</p>
     </div>
-
     <script>
         // 切换主选卡
         function showTab(tab) {
@@ -245,13 +314,13 @@
                 tabContent.style.display = 'none';
             });
             document.getElementById(tab).style.display = 'block';
+            document.getElementById(tab).classList.add('tab-content'); // 确保添加动画类
             const allTabButtons = document.querySelectorAll('.tab');
             allTabButtons.forEach(button => {
                 button.classList.remove('active');
             });
             document.querySelector(`.tab[onclick="showTab('${tab}')"]`).classList.add('active');
         }
-
         // 切换子选卡
         function showSubTab(subTab) {
             const allSubTabs = document.querySelectorAll('.sub-tab-content');
@@ -259,13 +328,13 @@
                 subTabContent.style.display = 'none';
             });
             document.getElementById(subTab).style.display = 'block';
+            document.getElementById(subTab).classList.add('tab-content'); // 确保添加动画类
             const allSubTabButtons = document.querySelectorAll('.sub-tab');
             allSubTabButtons.forEach(button => {
                 button.classList.remove('active');
             });
             document.querySelector(`.sub-tab[onclick="showSubTab('${subTab}')"]`).classList.add('active');
         }
-
         // 切换三级子选卡
         function showSubSubTab(subSubTab) {
             const allSubSubTabs = document.querySelectorAll('.sub-sub-tab-content');
@@ -273,6 +342,7 @@
                 subSubTabContent.style.display = 'none';
             });
             document.getElementById(subSubTab).style.display = 'block';
+            document.getElementById(subSubTab).classList.add('tab-content'); // 确保添加动画类
             const allSubSubTabButtons = document.querySelectorAll('.sub-sub-tab');
             allSubSubTabButtons.forEach(button => {
                 button.classList.remove('active');
@@ -280,6 +350,5 @@
             document.querySelector(`.sub-sub-tab[onclick="showSubSubTab('${subSubTab}')"]`).classList.add('active');
         }
     </script>
-
 </body>
 </html>
