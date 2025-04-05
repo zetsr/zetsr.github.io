@@ -1,571 +1,223 @@
 <!DOCTYPE html>
 <html lang="zh">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zetsr HvH - Website</title>
-    <style>
-        /* 深色主题 (默认) */
-        body {
-            background-color: #1a1a1a;
-            color: rgb(200, 200, 200);
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            text-align: center;
-            transition: background-color 0.5s ease, color 0.5s ease;
-            /* 主题颜色过渡 */
-        }
-
-        body.light-theme {
-            background-color: #f0f0f0;
-            color: #333;
-        }
-
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            width: 100%;
-            max-width: 1200px;
-            box-sizing: border-box;
-            background-color: #222;
-            border-radius: 12px;
-            padding: 25px;
-            opacity: 0.95;
-            transition: background-color 0.5s ease, border-radius 0.5s ease, padding 0.3s ease, opacity 0.5s ease;
-            /* 主题颜色过渡 */
-        }
-
-        .light-theme .container {
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .container:hover {
-            opacity: 1;
-            background-color: #282828;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-        }
-
-        .light-theme .container:hover {
-            background-color: #f8f8f8;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .tabs {
-            display: flex;
-            background-color: #333;
-            border-bottom: 1px solid rgb(200, 200, 200);
-            width: 100%;
-            justify-content: center;
-            text-align: center;
-            border-radius: 8px 8px 0 0;
-            overflow: hidden;
-            transition: border-radius 0.3s ease, background-color 0.5s ease, border-bottom-color 0.5s ease;
-            /* 主题颜色过渡 */
-        }
-
-        .light-theme .tabs {
-            background-color: #eee;
-            border-bottom-color: #ccc;
-        }
-
-        .tabs:hover {
-            border-radius: 12px 12px 0 0;
-        }
-
-        .tab {
-            padding: 15px 30px;
-            cursor: pointer;
-            color: rgb(200, 200, 200);
-            background-color: #444;
-            border: 1px solid #333;
-            border-radius: 8px;
-            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.5s ease;
-            /* 主题颜色过渡 */
-            margin: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .light-theme .tab {
-            background-color: #ddd;
-            color: #555;
-            border-color: #ccc;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .tab:first-child {
-            margin-left: 10px;
-        }
-
-        .tab:last-child {
-            margin-right: 10px;
-        }
-
-        .tab:hover {
-            background-color: #555;
-            color: #eee;
-            transform: scale(1.05);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        .light-theme .tab:hover {
-            background-color: #ccc;
-            color: #444;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        .tab.active {
-            background-color: #222;
-            border-bottom: 2px solid rgb(200, 200, 200);
-            color: #fff;
-            transform: translateY(-2px);
-        }
-
-        .light-theme .tab.active {
-            background-color: #fff;
-            border-bottom-color: #333;
-            color: #333;
-        }
-
-        .content {
-            padding: 25px;
-            background-color: #222;
-            flex-grow: 1;
-            overflow-y: auto;
-            width: 100%;
-            box-sizing: border-box;
-            text-align: center;
-            border-radius: 0 0 12px 12px;
-            opacity: 0.95;
-            transition: padding 0.3s ease, border-radius 0.5s ease, opacity 0.5s ease, background-color 0.5s ease;
-            /* 主题颜色过渡 */
-        }
-
-        .light-theme .content {
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .content:hover {
-            opacity: 1;
-            padding: 30px;
-            border-radius: 0 0 15px 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-        }
-
-        .light-theme .content:hover {
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .tab-content {
-            animation: fadeIn 0.5s ease-out forwards;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-
-            to {
-                opacity: 0.95;
-                transform: translateY(0);
-            }
-        }
-
-        .sub-tabs,
-        .sub-sub-tabs {
-            display: flex;
-            justify-content: center;
-            margin-top: 25px;
-            border-top: 1px solid rgb(200, 200, 200);
-            padding-top: 15px;
-            width: 100%;
-            transition: border-top-color 0.5s ease;
-            /* 主题颜色过渡 */
-        }
-
-        .light-theme .sub-tabs,
-        .light-theme .sub-sub-tabs {
-            border-top-color: #ccc;
-        }
-
-        .sub-tab,
-        .sub-sub-tab {
-            padding: 12px 25px;
-            cursor: pointer;
-            color: rgb(200, 200, 200);
-            background-color: #444;
-            margin: 5px;
-            border: 1px solid #333;
-            border-radius: 8px;
-            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.5s ease;
-            /* 主题颜色过渡 */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .light-theme .sub-tab,
-        .light-theme .sub-sub-tab {
-            background-color: #ddd;
-            color: #555;
-            border-color: #ccc;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .sub-tab:hover,
-        .sub-sub-tab:hover {
-            background-color: #555;
-            color: #eee;
-            transform: scale(1.05);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        .light-theme .sub-tab:hover,
-        .light-theme .sub-sub-tab:hover {
-            background-color: #ccc;
-            color: #444;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        .sub-tab.active,
-        .sub-sub-tab.active {
-            background-color: #333;
-            border-bottom: 2px solid rgb(200, 200, 200);
-            color: #fff;
-            transform: translateY(-2px);
-        }
-
-        .light-theme .sub-tab.active,
-        .light-theme .sub-sub-tab.active {
-            background-color: #ccc;
-            /* 浅色主题激活状态子选项卡背景色 */
-            border-bottom-color: #555;
-            color: #333;
-        }
-
-        /* 链接按钮样式 */
-        .link-container {
-            margin-top: 25px;
-            display: flex;
-            justify-content: center;
-            width: 100%;
-            transform-style: preserve-3d;
-        }
-
-        .link-container a {
-            text-decoration: none;
-            font-size: 16px;
-            border: 1px solid;
-            padding: 12px 20px;
-            border-radius: 8px;
-            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.5s ease;
-            /* 主题颜色过渡 */
-            margin: 5px;
-            display: inline-block;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .light-theme .link-container a {
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .link-container a:hover {
-            transform: scale(1.1) translateZ(5px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-        }
-
-        .light-theme .link-container a:hover {
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        .link-container a.online {
-            color: #66cc66;
-            border-color: #66cc66;
-        }
-
-        .light-theme .link-container a.online {
-            color: #008000;
-            /* 浅色主题在线链接颜色 */
-            border-color: #008000;
-        }
-
-        .link-container a.online:hover {
-            background-color: #66cc66;
-            color: #1a1a1a;
-        }
-
-        .light-theme .link-container a.online:hover {
-            background-color: #008000;
-            color: #fff;
-        }
-
-        .link-container a.offline {
-            color: #f1c232;
-            border-color: #f1c232;
-        }
-
-        .light-theme .link-container a.offline {
-            color: #daa520;
-            /* 浅色主题离线链接颜色 */
-            border-color: #daa520;
-        }
-
-        .link-container a.offline:hover {
-            background-color: #f1c232;
-            color: #1a1a1a;
-        }
-
-        .light-theme .link-container a.offline:hover {
-            background-color: #daa520;
-            color: #fff;
-        }
-
-        .link-container a.closed {
-            color: #ff6666;
-            border-color: #ff6666;
-        }
-
-        .light-theme .link-container a.closed {
-            color: #b22222;
-            /* 浅色主题关闭链接颜色 */
-            border-color: #b22222;
-        }
-
-        .link-container a.closed:hover {
-            background-color: #ff6666;
-            color: #1a1a1a;
-        }
-
-        .light-theme .link-container a.closed:hover {
-            background-color: #b22222;
-            color: #fff;
-        }
-
-
-        /* 主题切换按钮样式 */
-        .theme-toggle-button {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            background-color: #555;
-            color: rgb(200, 200, 200);
-            border: none;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        .theme-toggle-button:hover {
-            background-color: #777;
-        }
-
-        .light-theme .theme-toggle-button {
-            background-color: #ddd;
-            color: #555;
-        }
-
-        .light-theme .theme-toggle-button:hover {
-            background-color: #bbb;
-        }
-
-
-        /* 响应式样式 */
-        @media (max-width: 768px) {
-            .tabs {
-                flex-direction: column;
-                border-radius: 12px;
-                overflow: visible;
-            }
-
-            .tab {
-                padding: 15px;
-                margin: 5px 10px;
-                border-radius: 10px;
-            }
-
-            .tab.active {
-                border-right: none;
-                border-bottom: 2px solid rgb(200, 200, 200);
-            }
-
-            .light-theme .tab.active {
-                border-bottom-color: #333;
-            }
-
-            .content {
-                border-radius: 12px;
-            }
-
-            .sub-tabs,
-            .sub-sub-tabs {
-                margin-top: 20px;
-            }
-
-            .sub-tab,
-            .sub-sub-tab {
-                padding: 10px 20px;
-                margin: 3px;
-                border-radius: 6px;
-            }
-
-            .link-container {
-                margin-top: 20px;
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .link-container a {
-                margin: 5px 0;
-                border-radius: 6px;
-            }
-
-            .theme-toggle-button {
-                top: 10px;
-                right: 10px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Zetsr HvH</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    body { margin: 0; overflow: hidden; background: black; }
+    canvas.webgl { width: 100%; height: 100vh; display: block; position: absolute; top: 0; left: 0; z-index: 0; }
+
+    #server-list {
+      position: absolute;
+      top: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      height: 80%;
+      overflow: auto;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      animation: fadeIn 1s;
+      z-index: 2;
+    }
+
+    @supports (backdrop-filter: blur(5px)) {
+      #server-list {
+        backdrop-filter: blur(5px);
+      }
+    }
+
+    #server-list ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      width: 100%;
+    }
+
+    #server-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+
+    #server-list li:last-child {
+      border-bottom: none;
+    }
+
+    .server-name,
+    .server-ip,
+    .server-tags,
+    .server-platform {
+      flex: 1;
+      color: white;
+    }
+
+    .server-tags i {
+      margin-right: 5px;
+    }
+
+    .server-platform {
+      flex: 0.5;
+    }
+
+    .join-button {
+      padding: 5px 10px;
+      background: #4CAF50;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+
+    .join-button:hover {
+      background: #45a049;
+    }
+
+    @media (max-width: 600px) {
+      #server-list li {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .server-name, .server-ip, .server-tags, .server-platform, .join-button {
+        margin-bottom: 5px;
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
 </head>
-
 <body>
+  <canvas class="webgl"></canvas>
 
-    <button class="theme-toggle-button" onclick="toggleTheme()">☀</button>
-
-    <div class="container">
-        <div class="tabs">
-            <div class="tab active" onclick="showTab('home')">🏠</div>
-            <div class="tab" onclick="showTab('server')">🖥️</div>
-            <div class="tab" onclick="showTab('contact')">💬</div>
+  <div id="server-list">
+    <ul>
+      <li>
+        <div class="server-name">*Zetsr HvH* - 速射 & 空速 & 无扩散 - QQ群1009315323</div>
+        <div class="server-ip">43.248.119.161:27015</div>
+        <div class="server-tags">
+          <i class="fas fa-feather-alt" title="NS - 飞行"></i>
+          <i class="fas fa-fire" title="RF - 速射"></i>
         </div>
-        <div class="content" id="content">
-            <div id="home" class="tab-content">
-                <h1>Zetsr HvH</h1>
-                <p>欢迎来到 Zetsr HvH 社区！我们致力于为玩家提供最佳的游戏体验。在这里，您可以找到最新的服务器信息、以及更多内容。</p>
-                <p>我们的社区是非盈利性质的，所有服务器和资源都为了玩家免费开放。感谢您的支持！</p>
-                <p>如果您有任何问题或建议，欢迎通过联系方式页面提供的联系方式与我们联系。</p>
-            </div>
-
-            <div id="server" class="tab-content" style="display: none;">
-                <h1>服务器列表</h1>
-                <p>在这里您可以查看所有由我们托管的服务器。</p>
-                <p>我们目前提供CS:GO 和 CS:2 服务器。您可以根据您的喜好选择不同的服务器进行游戏。所有服务器都经过优化，以提供流畅和稳定的游戏体验。</p>
-                <div class="sub-tabs">
-                    <div class="sub-tab active" onclick="showSubTab('server1')">CS:GO</div>
-                    <div class="sub-tab" onclick="showSubTab('server2')">CS:2</div>
-                </div>
-                <div id="server1" class="sub-tab-content">
-                    <h2>CS:GO 服务器列表</h2>
-                    <p>以下是我们的 CS:GO 服务器列表。点击服务器名称即可加入游戏。</p>
-                    <div id="server1-link" class="sub-sub-tab-content">
-                        <div class="link-container">
-                            <a href="steam://connect/43.248.119.161:27015" target="_blank" class="online">*Zetsr HvH* - 速射 & 空速 & 无扩散</a>
-                            <a href="steam://connect/110.42.107.181:27015" target="_blank" class="online">*Zetsr HvH* - 速射 & 空速 & 有扩散</a>
-                        </div>
-                    </div>
-                </div>
-                <div id="server2" class="sub-tab-content" style="display: none;">
-                    <h2>CS:2 服务器列表</h2>
-                    <p>以下是我们的 CS:2 服务器列表。点击服务器名称即可加入游戏。</p>
-                    <div id="server2-link" class="sub-sub-tab-content">
-                        <div class="link-container">
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="contact" class="tab-content" style="display: none;">
-                <h1>联系方式</h1>
-                <p>您可以通过以下方式联系我们：</p>
-                <div class="link-container">
-                    <a href="https://github.com/zetsr" target="_blank" class="online">GitHub</a>
-                </div>
-            </div>
+        <div class="server-platform"><i class="fab fa-linux"></i></div>
+        <a href="steam://connect/43.248.119.161:27015" class="join-button">加入</a>
+      </li>
+      <li>
+        <div class="server-name">*Zetsr HvH* - 速射 & 空速 & 有扩散 - QQ群1009315323</div>
+        <div class="server-ip">110.42.107.181:27015</div>
+        <div class="server-tags">
+          <i class="fas fa-fire" title="RF - 速射"></i>
         </div>
-        <p style="opacity: 0.7; transition: opacity 0.3s ease;" onmouseover="this.style.opacity=1"
-            onmouseout="this.style.opacity=0.7">Zetsr HvH 2024-2025</p>
-    </div>
-    <script>
-        let currentTheme = 'dark'; // 默认主题为深色
+        <div class="server-platform"><i class="fab fa-windows"></i></div>
+        <a href="steam://connect/110.42.107.181:27015" class="join-button">加入</a>
+      </li>
+    </ul>
+  </div>
 
-        // 切换主题模式
-        function toggleTheme() {
-            console.log('toggleTheme 函数被调用');
-            const body = document.body;
-            body.classList.toggle('light-theme');
-            currentTheme = body.classList.contains('light-theme') ? 'light' : 'dark';
-            const themeButton = document.querySelector('.theme-toggle-button');
-            themeButton.textContent = currentTheme === 'light' ? '☽' : '☀';
-            console.log('当前主题:', currentTheme);
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script>
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(0, 10, 20);
+    camera.lookAt(0, 0, 0);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, canvas: document.querySelector(".webgl") });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.shadowMap.enabled = true;
+
+    // 动态天空
+    const skyGeometry = new THREE.SphereGeometry(500, 32, 32);
+    const skyMaterial = new THREE.ShaderMaterial({
+      uniforms: {
+        topColor: { value: new THREE.Color(0x1a1a2e) },
+        bottomColor: { value: new THREE.Color(0x2e2e4e) },
+        offset: { value: 0.6 },
+        exponent: { value: 0.8 },
+        lightningIntensity: { value: 0.0 }
+      },
+      vertexShader: `
+        varying vec3 vWorldPosition;
+        void main() {
+          vWorldPosition = (modelMatrix * vec4(position, 1.0)).xyz;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
         }
-
-
-        // 切换主选卡
-        function showTab(tab) {
-            const allTabs = document.querySelectorAll('.tab-content');
-            allTabs.forEach(tabContent => {
-                tabContent.style.display = 'none';
-            });
-            document.getElementById(tab).style.display = 'block';
-            document.getElementById(tab).classList.add('tab-content'); // 确保添加动画类
-
-            const allTabButtons = document.querySelectorAll('.tab');
-            allTabButtons.forEach(button => {
-                button.classList.remove('active');
-            });
-            document.querySelector(`.tab[onclick="showTab('${tab}')"]`).classList.add('active');
-
-
-            // 当切换到 "服务器" 选项卡时，默认显示 server1 的子选项卡内容
-            if (tab === 'server') {
-                showSubTab('server1');
-            }
+      `,
+      fragmentShader: `
+        uniform vec3 topColor;
+        uniform vec3 bottomColor;
+        uniform float offset;
+        uniform float exponent;
+        uniform float lightningIntensity;
+        varying vec3 vWorldPosition;
+        void main() {
+          float h = normalize(vWorldPosition).y;
+          float t = max(pow(max(h + offset, 0.0), exponent), 0.0);
+          vec3 baseColor = mix(bottomColor, topColor, t);
+          vec3 finalColor = mix(baseColor, vec3(0.6, 0.7, 0.9), lightningIntensity);
+          gl_FragColor = vec4(finalColor, 1.0);
         }
-        // 切换子选卡
-        function showSubTab(subTab) {
-            const allSubTabs = document.querySelectorAll('.sub-tab-content');
-            allSubTabs.forEach(subTabContent => {
-                subTabContent.style.display = 'none';
-            });
-            document.getElementById(subTab).style.display = 'block';
-            document.getElementById(subTab).classList.add('tab-content'); // 确保添加动画类
+      `,
+      side: THREE.BackSide
+    });
+    scene.add(new THREE.Mesh(skyGeometry, skyMaterial));
 
-            const allSubTabButtons = document.querySelectorAll('.sub-tab');
-            allSubTabButtons.forEach(button => {
-                button.classList.remove('active');
-            });
-            document.querySelector(`.sub-tab[onclick="showSubTab('${subTab}')"]`).classList.add('active');
+    scene.add(new THREE.AmbientLight(0xffffff, 0.3));
+
+    // 雨滴粒子系统
+    const rainDrops = [];
+    const rainCount = 3000;
+    for (let i = 0; i < rainCount; i++) {
+      const drop = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.03, 0.03, 0.6, 8),
+        new THREE.MeshPhongMaterial({ color: 0xcccccc, transparent: true, opacity: 0.9 })
+      );
+      drop.position.set(
+        Math.random() * 100 - 50,
+        Math.random() * 50 + 20,
+        Math.random() * 100 - 50
+      );
+      drop.velocity = new THREE.Vector3(0, -0.8 - Math.random() * 0.4, 0);
+      scene.add(drop);
+      rainDrops.push(drop);
+    }
+
+    // 响应窗口缩放
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // 渲染循环
+    function animate() {
+      requestAnimationFrame(animate);
+      for (let drop of rainDrops) {
+        if (drop.position.x > -15 && drop.position.x < 15 &&
+            drop.position.z > -10 && drop.position.z < 10) {
+          continue; // UI 区域不显示雨滴
         }
-        // 切换三级子选卡
-        function showSubSubTab(subSubTab) {
-            const allSubSubTabs = document.querySelectorAll('.sub-sub-tab-content');
-            allSubSubTabs.forEach(subSubTabContent => {
-                subSubTabContent.style.display = 'none';
-            });
-            document.getElementById(subSubTab).style.display = 'block';
-            document.getElementById(subSubTab).classList.add('tab-content'); // 确保添加动画类
-
-            const allSubSubTabButtons = document.querySelectorAll('.sub-sub-tab');
-            allSubSubTabButtons.forEach(button => {
-                button.classList.remove('active');
-            });
-            document.querySelector(`.sub-sub-tab[onclick="showSubSubTab('${subSubTab}')"]`).classList.add('active');
+        drop.position.add(drop.velocity);
+        if (drop.position.y < -20) {
+          drop.position.y = 50 + Math.random() * 20;
+          drop.position.x = Math.random() * 100 - 50;
+          drop.position.z = Math.random() * 100 - 50;
         }
+      }
+      renderer.render(scene, camera);
+    }
 
-        // 页面加载后，默认显示主页内容
-        window.onload = function () {
-            showTab('home');
-        };
-    </script>
+    animate();
+  </script>
 </body>
-
 </html>
