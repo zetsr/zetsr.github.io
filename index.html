@@ -1,244 +1,451 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Zetsr HvH</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <style>
-    body { margin: 0; overflow: hidden; background: black; }
-    canvas.webgl { width: 100%; height: 100vh; display: block; position: absolute; top: 0; left: 0; z-index: 0; }
-
-    #server-list {
-      position: absolute;
-      top: 5%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 90%;
-      height: 80%;
-      overflow: auto;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      animation: fadeIn 1s;
-      z-index: 2;
-    }
-
-    @supports (backdrop-filter: blur(5px)) {
-      #server-list {
-        backdrop-filter: blur(5px);
-      }
-    }
-
-    #server-list ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      width: 100%;
-    }
-
-    #server-list li {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.2);
-    }
-
-    #server-list li:last-child {
-      border-bottom: none;
-    }
-
-    .server-name,
-    .server-ip,
-    .server-tags,
-    .server-platform {
-      flex: 1;
-      color: white;
-    }
-
-    .server-tags i {
-      margin-right: 5px;
-    }
-
-    .server-platform {
-      flex: 0.5;
-    }
-
-    .join-button {
-      padding: 5px 10px;
-      background: #4CAF50;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-    }
-
-    .join-button:hover {
-      background: #45a049;
-    }
-
-    @media (max-width: 600px) {
-      #server-list li {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .server-name, .server-ip, .server-tags, .server-platform, .join-button {
-        margin-bottom: 5px;
-      }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>西风先生的伟大公益（奇遇记）之路</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom styles that complement Tailwind */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+        }
+        
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -1.5rem;
+            top: 0;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background: #3b82f6;
+            border: 3px solid #fff;
+            box-shadow: 0 0 0 2px #3b82f6;
+        }
+        
+        .highlight {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .highlight::after {
+            content: "";
+            position: absolute;
+            bottom: 0.1em;
+            left: 0;
+            width: 100%;
+            height: 0.4em;
+            background-color: rgba(251, 191, 36, 0.4);
+            z-index: -1;
+            transform: skewX(-15deg);
+        }
+        
+        .quote {
+            border-left: 4px solid #3b82f6;
+            background-color: rgba(59, 130, 246, 0.05);
+        }
+        
+        .separator {
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);
+        }
+        
+        @media (max-width: 640px) {
+            .timeline-item::before {
+                left: -1.25rem;
+                width: 0.75rem;
+                height: 0.75rem;
+            }
+        }
+    </style>
 </head>
-<body>
-  <canvas class="webgl"></canvas>
-
-  <div id="server-list">
-    <ul>
-      <li>
-        <div class="server-name">*Zetsr HvH* - 纯净服</div>
-        <div class="server-ip">27.45.5.150:27015</div>
-        <div class="server-tags">
+<body class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+        <!-- Header Section -->
+        <div class="bg-gradient-to-r from-blue-500 to-blue-600 p-8 text-center">
+            <h1 class="text-3xl sm:text-4xl font-bold text-white mb-2">西风先生的“伟大公益”之路</h1>
+            <div class="flex justify-center items-center space-x-2 text-blue-100">
+                <i class="fas fa-history"></i>
+                <span>一段充满“奇遇”的社区管理历程</span>
+            </div>
         </div>
-        <div class="server-platform"><i class="fab fa-linux"></i></div>
-        <a href="steam://connect/27.45.5.150:27015" class="join-button">加入</a>
-      </li>
-
-      <li>
-        <div class="server-name">*Zetsr HvH* - 纯净爆头服</div>
-        <div class="server-ip">27.45.5.150:27016</div>
-        <div class="server-tags">
+        
+        <!-- Main Content -->
+        <div class="p-6 sm:p-8 relative">
+            <!-- Timeline decoration -->
+            <div class="absolute left-8 sm:left-10 top-0 bottom-0 w-0.5 bg-blue-100"></div>
+            
+            <!-- Timeline Items -->
+            <div class="space-y-10">
+                <!-- Item 1 -->
+                <div class="relative pl-10 sm:pl-12 timeline-item">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mr-4">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-600">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center mb-1">
+                                <span class="inline-block px-2 py-1 text-xs font-semibold tracking-wider text-blue-800 bg-blue-100 rounded-full">202*年</span>
+                            </div>
+                            <p class="text-gray-700">
+                                据传闻，西风先生在Creatures of Sonaria不幸被发现使用“<span class="highlight font-medium">高效生产力工具</span>”，为自己的账户批量“<span class="highlight font-medium">优化</span>”出高价值物品，并以“<span class="highlight font-medium">普惠</span>”价格低价售卖给其他玩家。该“<span class="highlight font-medium">创新</span>”行为最终引发玩家们的“<span class="highlight font-medium">热情关注</span>”，最终西风先生黯然退场。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 2 -->
+                <div class="relative pl-10 sm:pl-12 timeline-item">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mr-4">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-600">
+                                <i class="fas fa-dragon"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center mb-1">
+                                <span class="inline-block px-2 py-1 text-xs font-semibold tracking-wider text-blue-800 bg-blue-100 rounded-full">202*年</span>
+                            </div>
+                            <p class="text-gray-700">
+                                西风先生带着对游戏社区的“<span class="highlight font-medium">深厚感情</span>”，来到Day of Dragons（DoD）。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 3 -->
+                <div class="relative pl-10 sm:pl-12 timeline-item">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mr-4">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-600">
+                                <i class="fas fa-server"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center mb-1">
+                                <span class="inline-block px-2 py-1 text-xs font-semibold tracking-wider text-blue-800 bg-blue-100 rounded-full">202*年</span>
+                            </div>
+                            <p class="text-gray-700">
+                                西风先生“<span class="highlight font-medium">顺应民心</span>”，创立了私人服务器社区Little Dragon Nest（LDN）。该服务器的“<span class="highlight font-medium">基础设施</span>”由其亲友**“<span class="highlight font-medium">慷慨</span>”赞助，“<span class="highlight font-medium">技术保障</span>”由其亲友**“<span class="highlight font-medium">无私</span>”担任，而“<span class="highlight font-medium">用户体验</span>”则由其亲友**等人“<span class="highlight font-medium">全力以赴</span>”地负责。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 4 -->
+                <div class="relative pl-10 sm:pl-12 timeline-item">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mr-4">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-600">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center mb-1">
+                                <span class="inline-block px-2 py-1 text-xs font-semibold tracking-wider text-blue-800 bg-blue-100 rounded-full">2023年</span>
+                            </div>
+                            <p class="text-gray-700">
+                                西风先生的LDN服务器“<span class="highlight font-medium">不负众望</span>”，成功登顶，成为整个中国乃至全球Day of Dragons地区玩家人数“<span class="highlight font-medium">最为集中</span>”的服务器之一。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 5 -->
+                <div class="relative pl-10 sm:pl-12 timeline-item">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mr-4">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-600">
+                                <i class="fas fa-gem"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center mb-1">
+                                <span class="inline-block px-2 py-1 text-xs font-semibold tracking-wider text-blue-800 bg-blue-100 rounded-full">2023年2月</span>
+                            </div>
+                            <p class="text-gray-700">
+                                游戏开发商为“<span class="highlight font-medium">先行投资人</span>”（PT赞助金额200美元及以上的玩家）推出了独家皮肤“纯金”。该皮肤原则上仅限“先行投资人”在创建新角色时选择，但任何拥有纯金皮肤的玩家均可通过“筑巢”这种“随机赠予机制”，以一个极低的概率将其遗传给其他玩家，无论对方是否是“先行投资人”。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 6 -->
+                <div class="relative pl-10 sm:pl-12 timeline-item">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mr-4">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-600">
+                                <i class="fas fa-user-shield"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center mb-1">
+                                <span class="inline-block px-2 py-1 text-xs font-semibold tracking-wider text-blue-800 bg-blue-100 rounded-full">2023年</span>
+                            </div>
+                            <p class="text-gray-700">
+                                西风先生随即指示“<span class="highlight font-medium">技术骨干</span>”**，通过后台修改存档的方式，使管理员们“<span class="highlight font-medium">光荣地</span>”获得了最高属性的“<span class="highlight font-medium">定制版</span>”纯金皮肤。西风先生同时“<span class="highlight font-medium">高瞻远瞩</span>”地要求管理员们：严禁将这些“<span class="highlight font-medium">特殊渠道获取</span>”的高属性纯金皮肤分发给其他玩家。该规则的设立，“<span class="highlight font-medium">奇迹般地</span>”成为了LDN乃至CN DoD社区矛盾激化的“<span class="highlight font-medium">催化剂</span>”。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 7 -->
+                <div class="relative pl-10 sm:pl-12 timeline-item">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mr-4">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-600">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center mb-1">
+                                <span class="inline-block px-2 py-1 text-xs font-semibold tracking-wider text-blue-800 bg-blue-100 rounded-full">2023年5月</span>
+                            </div>
+                            <p class="text-gray-700">
+                                LDN社区服务器内部，因“纯金”皮肤的“共享”问题，已多次引发玩家间的争吵和“<span class="highlight font-medium">亲切交流</span>”。西风先生对此类“<span class="highlight font-medium">内部矛盾</span>”，未予介入，保持了“<span class="highlight font-medium">高度的旁观精神</span>”。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 8 -->
+                <div class="relative pl-10 sm:pl-12 timeline-item">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mr-4">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-600">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center mb-1">
+                                <span class="inline-block px-2 py-1 text-xs font-semibold tracking-wider text-blue-800 bg-blue-100 rounded-full">2023年5月-9月</span>
+                            </div>
+                            <p class="text-gray-700">
+                                LDN社区中，那些“<span class="highlight font-medium">过于热心</span>”愿意分享纯金皮肤的玩家数量显著减少，即使服务器规则“原则上”不禁止普通玩家分享，任何“<span class="highlight font-medium">助人为乐</span>”的玩家依然享受到“<span class="highlight font-medium">高度重视</span>”。在此期间，新玩家需通过“<span class="highlight font-medium">不懈努力</span>”，自行将纯金皮肤提升至最高属性。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 9 -->
+                <div class="relative pl-10 sm:pl-12 timeline-item">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mr-4">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-600">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center mb-1">
+                                <span class="inline-block px-2 py-1 text-xs font-semibold tracking-wider text-blue-800 bg-blue-100 rounded-full">2023年10月</span>
+                            </div>
+                            <p class="text-gray-700">
+                                LDN的PVP服务器爆发了玩家与管理层之间的“<span class="highlight font-medium">深入讨论</span>”。管理层被指控“<span class="highlight font-medium">灵活运用权限进行游戏</span>”并“<span class="highlight font-medium">积极回应</span>”普通玩家。西风先生将该事件责任“<span class="highlight font-medium">精准地</span>”归咎于PVP服务器的管理员，并“<span class="highlight font-medium">明确指出</span>”该服务器“<span class="highlight font-medium">其实</span>”隶属于PVP管理员个人，随后“<span class="highlight font-medium">功成身退</span>”。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 10 -->
+                <div class="relative pl-10 sm:pl-12 timeline-item">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mr-4">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-600">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center mb-1">
+                                <span class="inline-block px-2 py-1 text-xs font-semibold tracking-wider text-blue-800 bg-blue-100 rounded-full">同月</span>
+                            </div>
+                            <p class="text-gray-700">
+                                西风先生“<span class="highlight font-medium">突然</span>”宣布LDN将从“<span class="highlight font-medium">纯粹公益</span>”模式转向“<span class="highlight font-medium">半付费模式</span>”。同月，在付费模式启动前，西风先生“<span class="highlight font-medium">再次思考</span>”后宣布付费计划取消，服务器“<span class="highlight font-medium">最终</span>”恢复公益模式运营。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 11 -->
+                <div class="relative pl-10 sm:pl-12 timeline-item">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mr-4">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-600">
+                                <i class="fas fa-ban"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center mb-1">
+                                <span class="inline-block px-2 py-1 text-xs font-semibold tracking-wider text-blue-800 bg-blue-100 rounded-full">同月</span>
+                            </div>
+                            <p class="text-gray-700">
+                                西风先生“<span class="highlight font-medium">深刻洞察</span>”后宣布LDN社区禁止一切与PVP相关的行为及讨论，并“<span class="highlight font-medium">高屋建瓴</span>”地指出PVP是所有社区矛盾的“<span class="highlight font-medium">核心根源</span>”。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 12 -->
+                <div class="relative pl-10 sm:pl-12 timeline-item">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mr-4">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-600">
+                                <i class="fas fa-gavel"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center mb-1">
+                                <span class="inline-block px-2 py-1 text-xs font-semibold tracking-wider text-blue-800 bg-blue-100 rounded-full">2023年12月</span>
+                            </div>
+                            <p class="text-gray-700">
+                                个别管理员将西风先生制定的“管理员禁止分享高属性纯金皮肤”的“<span class="highlight font-medium">内部指导意见</span>”，“<span class="highlight font-medium">创造性地</span>”扩大解释为“所有人禁止分享高属性纯金皮肤”。西风先生对此未作干预，据称原因为其亲友对此“<span class="highlight font-medium">表达了个人意愿</span>”。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 13 -->
+                <div class="relative pl-10 sm:pl-12 timeline-item">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mr-4">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-600">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center mb-1">
+                                <span class="inline-block px-2 py-1 text-xs font-semibold tracking-wider text-blue-800 bg-blue-100 rounded-full">2024年3月</span>
+                            </div>
+                            <p class="text-gray-700">
+                                西风先生“<span class="highlight font-medium">审时度势</span>”宣布卸任LDN服主一职。他“<span class="highlight font-medium">大公无私</span>”地表示，任何愿意“<span class="highlight font-medium">为社区发展贡献资金</span>”的个体，均可成为新的服主。此后，包括亲友**、以及“<span class="highlight font-medium">积极参与</span>”的新生代玩家们，“<span class="highlight font-medium">光荣地</span>”成为了新的服主和管理员。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 14 -->
+                <div class="relative pl-10 sm:pl-12 timeline-item">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mr-4">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-600">
+                                <i class="fas fa-users"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center mb-1">
+                                <span class="inline-block px-2 py-1 text-xs font-semibold tracking-wider text-blue-800 bg-blue-100 rounded-full">2024年4月</span>
+                            </div>
+                            <p class="text-gray-700">
+                                玩家**等人与大部分LDN管理员之间产生“<span class="highlight font-medium">建设性</span>”的理念与路线分歧，期间管理员一方被指“<span class="highlight font-medium">灵活运用</span>”各种手段。尽管已非服主，西风先生仍以社区群主身份“<span class="highlight font-medium">仗义执言</span>”，指责玩家**等人“<span class="highlight font-medium">过于活跃</span>”，并对某个涉事管理员进行了“<span class="highlight font-medium">温馨的口头提醒</span>”。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 15 -->
+                <div class="relative pl-10 sm:pl-12 timeline-item">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mr-4">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-600">
+                                <i class="fas fa-server"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center mb-1">
+                                <span class="inline-block px-2 py-1 text-xs font-semibold tracking-wider text-blue-800 bg-blue-100 rounded-full">2024年4月-2025年4月</span>
+                            </div>
+                            <p class="text-gray-700">
+                                西风先生在“<span class="highlight font-medium">完成服务器所有权转让</span>”之后，仍作为社区群组群主“<span class="highlight font-medium">勤勉地</span>”保持活跃。而服务器则“<span class="highlight font-medium">稳定地</span>”托管在西风先生的个人机器上，并在 2024年8月“<span class="highlight font-medium">不幸的</span>”因断电“<span class="highlight font-medium">丢失存档</span>”而将数据回滚至“<span class="highlight font-medium">六个月前</span>”的备份。更“<span class="highlight font-medium">令人称奇</span>”的是，除“<span class="highlight font-medium">核心技术骨干</span>”**和西风先生本人外，大部分“<span class="highlight font-medium">新晋服主</span>”无法访问服务器后台。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 16 -->
+                <div class="relative pl-10 sm:pl-12 timeline-item">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mr-4">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-600">
+                                <i class="fas fa-user-slash"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center mb-1">
+                                <span class="inline-block px-2 py-1 text-xs font-semibold tracking-wider text-blue-800 bg-blue-100 rounded-full">2025年4月</span>
+                            </div>
+                            <p class="text-gray-700">
+                                于2024年3月“<span class="highlight font-medium">积极入股</span>”服务器的新生代服主们“<span class="highlight font-medium">高效协同</span>”，使用一些“<span class="highlight font-medium">理所应当</span>”的指控，“<span class="highlight font-medium">顺利地</span>”解除了元老股东**的职务。西风先生全程对此“<span class="highlight font-medium">表示理解和惋惜</span>”，同时“<span class="highlight font-medium">婉拒</span>”了**的求助。当被质疑为何一个“<span class="highlight font-medium">良好开端</span>”的玩家社区服务器会演变至此，西风先生对此“<span class="highlight font-medium">给予了深邃的哲理启示</span>”：“<span class="highlight font-medium">如有异议，欢迎买下本服务器。</span>”随后**被“<span class="highlight font-medium">强制优化</span>”退股处理。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 17 -->
+                <div class="relative pl-10 sm:pl-12 timeline-item">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mr-4">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-600">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center mb-1">
+                                <span class="inline-block px-2 py-1 text-xs font-semibold tracking-wider text-blue-800 bg-blue-100 rounded-full">2025年5月</span>
+                            </div>
+                            <p class="text-gray-700">
+                                西风先生“<span class="highlight font-medium">正式宣布</span>”服务器已被股东之一的**“<span class="highlight font-medium">完全接管</span>”，并已“<span class="highlight font-medium">彻底</span>”转让。随后，西风先生也“<span class="highlight font-medium">圆满地</span>”完成了社区群组所有权的转让。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 18 -->
+                <div class="relative pl-10 sm:pl-12 timeline-item">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mr-4">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-600">
+                                <i class="fas fa-question-circle"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center mb-1">
+                                <span class="inline-block px-2 py-1 text-xs font-semibold tracking-wider text-blue-800 bg-blue-100 rounded-full">同月</span>
+                            </div>
+                            <p class="text-gray-700">
+                                LDN服务器似乎“<span class="highlight font-medium">神秘地</span>”从西风先生的机器迁移至第三方数据中心。然而，仅仅一个月后，LDN服务器又“<span class="highlight font-medium">出人意料地</span>”再次回到了与西风先生的机器“<span class="highlight font-medium">完全相同</span>”的归属地与运营商处。这一系列“<span class="highlight font-medium">巧合</span>”，令人浮想联翩。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Final Quote -->
+            <div class="mt-12 p-6 rounded-lg quote">
+                <div class="flex items-start">
+                    <div class="flex-shrink-0 text-blue-500 mr-4 mt-1">
+                        <i class="fas fa-quote-left text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-blue-800 italic font-medium">
+                            “公益服务器的运营，需要管理者具备'<span class="highlight">非凡智慧</span>'与'<span class="highlight">坚定信念</span>'。西风先生在这条道路上，留下了许多值得'<span class="highlight">深思</span>'的足迹。”
+                        </p>
+                        <p class="text-blue-700 text-right mt-2">—— 某位不愿透露姓名的社区成员</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="server-platform"><i class="fab fa-linux"></i></div>
-        <a href="steam://connect/27.45.5.150:27016" class="join-button">加入</a>
-      </li>
-
-      <li>
-        <div class="server-name">*Zetsr HvH* - 速射 & 空速 & 无扩散</div>
-        <div class="server-ip">27.45.5.150:27017</div>
-        <div class="server-tags">
-          <i class="fas fa-fire" title="RF - 速射"></i>
-          <i class="fas fa-running" title="AS - 空速"></i>
-          <i class="fas fa-feather-alt" title="NS - 无扩散"></i>
+        
+        <!-- Footer -->
+        <div class="bg-gray-50 px-6 py-4 border-t border-gray-200 text-center text-gray-500 text-sm">
+            <p></p>
         </div>
-        <div class="server-platform"><i class="fab fa-linux"></i></div>
-        <a href="steam://connect/27.45.5.150:27017" class="join-button">加入</a>
-      </li>
-
-      <li>
-        <div class="server-name">*Zetsr HvH* - 速射 & 空速 & 有扩散</div>
-        <div class="server-ip">27.45.5.150:27018</div>
-        <div class="server-tags">
-          <i class="fas fa-fire" title="RF - 速射"></i>
-          <i class="fas fa-running" title="AS - 空速"></i>
-        </div>
-        <div class="server-platform"><i class="fab fa-linux"></i></div>
-        <a href="steam://connect/27.45.5.150:27018" class="join-button">加入</a>
-      </li>
-    </ul>
-  </div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-  <script>
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.set(0, 10, 20);
-    camera.lookAt(0, 0, 0);
-
-    const renderer = new THREE.WebGLRenderer({ antialias: true, canvas: document.querySelector(".webgl") });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.shadowMap.enabled = true;
-
-    // 动态天空
-    const skyGeometry = new THREE.SphereGeometry(500, 32, 32);
-    const skyMaterial = new THREE.ShaderMaterial({
-      uniforms: {
-        topColor: { value: new THREE.Color(0x1a1a2e) },
-        bottomColor: { value: new THREE.Color(0x2e2e4e) },
-        offset: { value: 0.6 },
-        exponent: { value: 0.8 },
-        lightningIntensity: { value: 0.0 }
-      },
-      vertexShader: `
-        varying vec3 vWorldPosition;
-        void main() {
-          vWorldPosition = (modelMatrix * vec4(position, 1.0)).xyz;
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        }
-      `,
-      fragmentShader: `
-        uniform vec3 topColor;
-        uniform vec3 bottomColor;
-        uniform float offset;
-        uniform float exponent;
-        uniform float lightningIntensity;
-        varying vec3 vWorldPosition;
-        void main() {
-          float h = normalize(vWorldPosition).y;
-          float t = max(pow(max(h + offset, 0.0), exponent), 0.0);
-          vec3 baseColor = mix(bottomColor, topColor, t);
-          vec3 finalColor = mix(baseColor, vec3(0.6, 0.7, 0.9), lightningIntensity);
-          gl_FragColor = vec4(finalColor, 1.0);
-        }
-      `,
-      side: THREE.BackSide
-    });
-    scene.add(new THREE.Mesh(skyGeometry, skyMaterial));
-
-    scene.add(new THREE.AmbientLight(0xffffff, 0.3));
-
-    // 雨滴粒子系统
-    const rainDrops = [];
-    const rainCount = 3000;
-    for (let i = 0; i < rainCount; i++) {
-      const drop = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.03, 0.03, 0.6, 8),
-        new THREE.MeshPhongMaterial({ color: 0xcccccc, transparent: true, opacity: 0.9 })
-      );
-      drop.position.set(
-        Math.random() * 100 - 50,
-        Math.random() * 50 + 20,
-        Math.random() * 100 - 50
-      );
-      drop.velocity = new THREE.Vector3(0, -0.8 - Math.random() * 0.4, 0);
-      scene.add(drop);
-      rainDrops.push(drop);
-    }
-
-    // 响应窗口缩放
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-
-    // 渲染循环
-    function animate() {
-      requestAnimationFrame(animate);
-      for (let drop of rainDrops) {
-        if (drop.position.x > -15 && drop.position.x < 15 &&
-            drop.position.z > -10 && drop.position.z < 10) {
-          continue; // UI 区域不显示雨滴
-        }
-        drop.position.add(drop.velocity);
-        if (drop.position.y < -20) {
-          drop.position.y = 50 + Math.random() * 20;
-          drop.position.x = Math.random() * 100 - 50;
-          drop.position.z = Math.random() * 100 - 50;
-        }
-      }
-      renderer.render(scene, camera);
-    }
-
-    animate();
-  </script>
+    </div>
 </body>
 </html>
